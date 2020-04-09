@@ -19,10 +19,7 @@
         </activity>
     </application>
 
-    <meta-data
-        android:name="firebase_analytics_collection_enabled"
-        android:value="true" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

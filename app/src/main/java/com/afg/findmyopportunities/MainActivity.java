@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         else
             Log.d("Main Activity", "NOT NULL");
 
-        myRef.setValue("Hello, World!");
+        myRef.setValue("Hello!!!");
     }
 
     public void openOpportunities(View v) {
