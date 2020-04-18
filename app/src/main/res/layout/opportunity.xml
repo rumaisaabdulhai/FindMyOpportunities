@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_master"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id= "@+id/ll_master"
+    android:clickable="true"
+    android:onClick="openOpportunity"
     android:orientation="vertical"
     android:padding="15dp">
 
@@ -14,10 +16,10 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="Title"
             android:textColor="#3F51B5"
-            android:textStyle="bold"
             android:textSize="25sp"
-            android:text="Title"/>
+            android:textStyle="bold" />
 
         <!-- Description of the Opportunity -->
         <TextView
@@ -29,6 +31,6 @@
             android:maxLines="2"
             android:text="Description"
             android:textColor="#456"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
 </LinearLayout>
