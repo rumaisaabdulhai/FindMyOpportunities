@@ -2,38 +2,77 @@ package com.afg.findmyopportunities;
 
 public class Opportunity {
 
-    public String getThumb() {
-        return thumb;
+    private String title;
+    private String address[];
+    private String contact[];
+    private String organizer;
+    private String location;
+    private String description;
+
+    public Opportunity (String[] address, String[] contact, String description, String organizer, String title, String location) {
+        this.title = title;
+        this.address = address;
+        this.contact = contact;
+        this.organizer = organizer;
+        this.location = location;
+        this.description = description;
     }
 
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public Opportunity () {
+        this.title = "title";
+        this.address = new String[] {"address"};
+        this.contact = new String[] {"address"};
+        this.organizer = "organizer";
+        this.location = "location";
+        this.description = "description";
     }
 
-    public String getCountry() {
-        return country;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getHeadlines() {
-        return headlines;
+    public String[] getAddress() {
+        return address;
     }
 
-    public void setHeadlines(String headlines) {
-        this.headlines = headlines;
+    public void setAddress(String[] address) {
+        this.address = address;
     }
 
-    String thumb;
-    String country;
-    String headlines;
+    public String[] getContact() {
+        return contact;
+    }
 
-    public Opportunity(String thumb, String country, String headlines) {
-        this.thumb = thumb;
-        this.country = country;
-        this.headlines = headlines;
+    public void setContact(String[] contact) {
+        this.contact = contact;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
