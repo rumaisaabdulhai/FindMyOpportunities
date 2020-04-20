@@ -1,15 +1,43 @@
 package com.afg.findmyopportunities;
 
-public class Opportunity {
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Opportunity  implements Parcelable {
+
+    private String ID;
     private String title;
-    private String address[];
-    private String contact[];
+    private ArrayList<String> address;
+    private ArrayList<String> contact;
     private String organizer;
     private String location;
     private String description;
 
-    public Opportunity (String[] address, String[] contact, String description, String organizer, String title, String location) {
+    public Opportunity () {
+        this.ID = "ID";
+        this.title = "title";
+        this.address = new ArrayList<>();
+        this.contact = new ArrayList<>();
+        this.organizer = "organizer";
+        this.location = "location";
+        this.description = "description";
+    }
+
+    public Opportunity(String ID, String title, String organizer, String location, String description) {
+        this.ID = ID;
+        this.title = title;
+        this.address = new ArrayList<>();
+        this.contact = new ArrayList<>();
+        this.organizer = organizer;
+        this.location = location;
+        this.description = description;
+    }
+
+    public Opportunity(String ID, String title, ArrayList<String> address, ArrayList<String> contact, String organizer, String location, String description) {
+        this.ID = ID;
         this.title = title;
         this.address = address;
         this.contact = contact;
@@ -18,13 +46,34 @@ public class Opportunity {
         this.description = description;
     }
 
-    public Opportunity () {
-        this.title = "title";
-        this.address = new String[] {"address"};
-        this.contact = new String[] {"address"};
-        this.organizer = "organizer";
-        this.location = "location";
-        this.description = "description";
+    protected Opportunity(Parcel in) {
+        ID = in.readString();
+        title = in.readString();
+        address = in.createStringArrayList();
+        contact = in.createStringArrayList();
+        organizer = in.readString();
+        location = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Opportunity> CREATOR = new Creator<Opportunity>() {
+        @Override
+        public Opportunity createFromParcel(Parcel in) {
+            return new Opportunity(in);
+        }
+
+        @Override
+        public Opportunity[] newArray(int size) {
+            return new Opportunity[size];
+        }
+    };
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getTitle() {
@@ -35,19 +84,19 @@ public class Opportunity {
         this.title = title;
     }
 
-    public String[] getAddress() {
+    public ArrayList<String> getAddress() {
         return address;
     }
 
-    public void setAddress(String[] address) {
+    public void setAddress(ArrayList<String> address) {
         this.address = address;
     }
 
-    public String[] getContact() {
+    public ArrayList<String> getContact() {
         return contact;
     }
 
-    public void setContact(String[] contact) {
+    public void setContact(ArrayList<String> contact) {
         this.contact = contact;
     }
 
@@ -75,4 +124,19 @@ public class Opportunity {
         this.description = description;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(ID);
+        parcel.writeString(title);
+        parcel.writeStringList(address);
+        parcel.writeStringList(contact);
+        parcel.writeString(organizer);
+        parcel.writeString(location);
+        parcel.writeString(description);
+    }
 }

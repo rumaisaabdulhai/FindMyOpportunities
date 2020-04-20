@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -13,12 +14,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class OpportunitiesListActivity extends AppCompatActivity {
+public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
@@ -38,7 +42,7 @@ public class OpportunitiesListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opportunities_list);
-        recyclerview = (RecyclerView)findViewById(R.id.my_recycler_view);
+        recyclerview = findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);
 
@@ -48,14 +52,15 @@ public class OpportunitiesListActivity extends AppCompatActivity {
 
         readData (new FirebaseCallback() {
             @Override
-            public void onCallback(ArrayList<Opportunity> opportunities) {
+            public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
 
-                for (Opportunity opportunity: opportunities) {
+                for (Opportunity opportunity: opportunityArrayList) {
                     Log.d(TAG, "\nTitle: " + opportunity.getTitle() +
                                     "\nDescription: " + opportunity.getDescription());
                 }
 
-                customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this);
+                opportunities = opportunityArrayList;
+                customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
                 recyclerview.setAdapter(customAdapter);
             }
         });
@@ -66,13 +71,18 @@ public class OpportunitiesListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String ID  = ds.getKey();
                     String title = ds.child("Title").getValue(String.class);
+//                    GenericTypeIndicator<ArrayList<String>> x = new GenericTypeIndicator<ArrayList<String>>() {};
+//                    ArrayList<String> address = ds.child("Address").getValue(x);
+//                    ArrayList<String> contact = ds.child("Contact").getValue(x);
+                    String organizer = ds.child("Organizer").getValue(String.class);
+                    String location = ds.child("Location").getValue(String.class);
                     String description = ds.child("Description").getValue(String.class);
 
-                    Opportunity x = new Opportunity();
-                    x.setTitle(title);
-                    x.setDescription(description);
-                    opportunities.add(x);
+                    Opportunity opportunity = new Opportunity( ID, title, organizer, location, description );
+                    opportunities.add(opportunity);
                 }
 
                 firebaseCallback.onCallback(opportunities);
@@ -89,13 +99,15 @@ public class OpportunitiesListActivity extends AppCompatActivity {
         opportunities_ref.addValueEventListener(valueEventListener);
     }
 
-    private interface FirebaseCallback {
-        void onCallback(ArrayList<Opportunity> opportunities);
+    @Override
+    public void onOpportunityClick(int position) {
+        Intent intent = new Intent(this, DisplayOpportunityActivity.class);
+        intent.putExtra("Opportunity", opportunities.get(position));
+        startActivity(intent);
     }
 
-    public void openOpportunity(View v) {
-        Intent intent = new Intent(this, DisplayOpportunityActivity.class);
-        startActivity(intent);
+    private interface FirebaseCallback {
+        void onCallback(ArrayList<Opportunity> opportunities);
     }
 
 }
