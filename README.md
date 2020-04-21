@@ -51,7 +51,7 @@ More information to come in this section.
 
 ## Demos
 
-You can view the demo for the application at this [link](https://drive.google.com/open?id=1VxDwlvLvOs4VoS_QoPm1o5I56xtbxr10).
+You can view the demo for the application at this [link](https://drive.google.com/drive/folders/1RYepMBXp4C455gbQowFRlhGz-BjMczkY?usp=sharing).
 
 ---
 
