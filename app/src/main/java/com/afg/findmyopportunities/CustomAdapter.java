@@ -77,7 +77,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public interface OnOpportunityListener {
 
-        void onOpportunityClick(int position );
+        void onOpportunityClick(int position);
+    }
+
+    public void updateList(ArrayList<Opportunity> newList)
+    {
+        opportunities = new ArrayList<>();
+        opportunities.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

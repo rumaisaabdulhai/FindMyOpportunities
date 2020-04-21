@@ -1,6 +1,7 @@
 package com.afg.findmyopportunities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener {
+public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener, SearchView.OnQueryTextListener {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
@@ -99,6 +102,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
         opportunities_ref.addValueEventListener(valueEventListener);
     }
 
+    //    Open Opportunity Activity on click
     @Override
     public void onOpportunityClick(int position) {
         Intent intent = new Intent(this, DisplayOpportunityActivity.class);
@@ -108,6 +112,39 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
 
     private interface FirebaseCallback {
         void onCallback(ArrayList<Opportunity> opportunities);
+    }
+
+    //    Show Search Icon
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        String userInput = newText.toLowerCase();
+        ArrayList<Opportunity> newList = new ArrayList<>();
+
+        for (Opportunity opportunity: opportunities)
+        {
+            if (opportunity.getTitle().toLowerCase().contains(userInput) | opportunity.getDescription().toLowerCase().contains(userInput))
+            {
+               newList.add(opportunity);
+            }
+        }
+
+        customAdapter.updateList(newList);
+        return false;
     }
 
 }
