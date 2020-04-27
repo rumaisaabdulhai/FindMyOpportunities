@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener, SearchView.OnQueryTextListener {
@@ -53,6 +55,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
         opportunities_ref = database.child("");
         opportunities = new ArrayList<>();
 
+
         readData (new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
@@ -67,7 +70,17 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
                 recyclerview.setAdapter(customAdapter);
             }
         });
+
+
     }
+
+    public void sortViewByName(View view){
+       Collections.sort(opportunities, new NameComparator());
+        customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+        recyclerview.setAdapter(customAdapter);
+    }
+
+
 
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {

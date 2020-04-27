@@ -6,14 +6,210 @@
     android:layout_height="match_parent"
     tools:context=".OpportunitiesListActivity">
 
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/cardView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+    <!--    android:background="#FFFFFF"-->
+    <!--    android:backgroundTint="#FFFFFF"-->
+    <!--        </androidx.cardview.widget.CardView>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/sortingLayout"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:background="#3F51B5"-->
+    <!--        android:backgroundTint="#3F51B5"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/my_recycler_view"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="1.0">-->
+
+    <!--        <androidx.cardview.widget.CardView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:backgroundTint="#3F51B5"-->
+    <!--            app:cardCornerRadius="0dp"-->
+    <!--            app:cardElevation="0dp" >-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/sortByLocationText"-->
+    <!--                android:layout_width="85dp"-->
+    <!--                android:layout_height="35dp"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:background="#000000"-->
+    <!--                android:backgroundTint="#FFFFFF"-->
+    <!--                android:gravity="center"-->
+    <!--                android:outlineProvider="bounds"-->
+    <!--                android:text="@string/sortByLocationStr"-->
+    <!--                android:textColor="#000000"-->
+    <!--                android:textStyle="bold" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/AlphebatizeText"-->
+    <!--                android:layout_width="85dp"-->
+    <!--                android:layout_height="35dp"-->
+    <!--                android:background="#000000"-->
+    <!--                android:backgroundTint="#FFFFFF"-->
+    <!--                android:gravity="center"-->
+    <!--                android:outlineProvider="bounds"-->
+    <!--                android:text="@string/AlphabetizeStr"-->
+    <!--                android:textColor="#000000"-->
+    <!--                android:textStyle="bold" />-->
+    <!--        </androidx.cardview.widget.CardView>-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/my_recycler_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="61dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#3F51B5"
+        app:cardBackgroundColor="@color/cardview_shadow_start_color"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/my_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="1dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:contentPadding="2dp">
+
+            <LinearLayout
+                android:id="@+id/sortingLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/sortByLocationButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sortByLocationStr" />
+
+                <Button
+                    android:id="@+id/alphabetizeButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="sortViewByName"
+                    android:text="@string/AlphabetizeStr" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/sortByLocationText"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:paddingLeft="4dp"-->
+                <!--                    android:paddingRight="4dp"-->
+                <!--                    android:text="@string/sortByLocationStr"-->
+                <!--                    android:textColor="#3F51B5"-->
+                <!--                    android:textStyle="bold" />-->
+
+                <!--                <View-->
+                <!--                    android:layout_width="1dp"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:background="@color/cardview_shadow_start_color" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/AlphabetizeText"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:paddingLeft="4dp"-->
+                <!--                    android:paddingRight="4dp"-->
+                <!--                    android:text="@string/AlphabetizeStr"-->
+                <!--                    android:textColor="#3F51B5"-->
+                <!--                    android:textStyle="bold" />-->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/sortingLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:background="#3F51B5"-->
+<!--        android:backgroundTint="#3F51B5"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/my_recycler_view"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0">-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:backgroundTint="#3F51B5"-->
+<!--            app:cardCornerRadius="0dp"-->
+<!--            app:cardElevation="0dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/sortByLocationText"-->
+<!--                android:layout_width="85dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="#000000"-->
+<!--                android:backgroundTint="#FFFFFF"-->
+<!--                android:gravity="center"-->
+<!--                android:outlineProvider="bounds"-->
+<!--                android:text="@string/sortByLocationStr"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/AlphebatizeText"-->
+<!--                android:layout_width="85dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:background="#000000"-->
+<!--                android:backgroundTint="#FFFFFF"-->
+<!--                android:gravity="center"-->
+<!--                android:outlineProvider="bounds"-->
+<!--                android:text="@string/AlphabetizeStr"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textStyle="bold" />-->
+<!--        </androidx.cardview.widget.CardView>-->
+
+<!--    </LinearLayout>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="61dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

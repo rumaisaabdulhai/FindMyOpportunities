@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Find My Opportunities</string>
-    <string name="welcomeText">Welcome to Find My Opportunities!</string>
-    <string name="startButton">Let\'s Get Started!</string>
+    <string name="welcomeText">Welcome to \nFind My Opportunities!</string>
+    <string name="startButton">Click here to get started!</string>
     <string name="hi">Hi!</string>
+    <string name="DownloadText">Download</string>
+    <string name="ViewerString">Viewer</string>
+    <string name="sortByLocationStr">Sort By Location</string>
+    <string name="AlphabetizeStr">Alphabetize</string>
 </resources>
