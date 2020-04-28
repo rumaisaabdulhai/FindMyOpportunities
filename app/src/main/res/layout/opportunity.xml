@@ -14,8 +14,9 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
+            android:fontFamily="sans-serif"
             android:text="Title"
-            android:textColor="#3F51B5"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -27,8 +28,9 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:fontFamily="sans-serif"
             android:text="Description"
-            android:textColor="#456"
-            android:textSize="15sp" />
+            android:textColor="@color/textColor"
+            android:textSize="20sp" />
 
 </LinearLayout>

@@ -6,4 +6,5 @@
     <string name="ViewerString">Viewer</string>
     <string name="sortByLocationStr">Sort By Location</string>
     <string name="AlphabetizeStr">Alphabetize</string>
+    <string name="searchHint">Find your opportunity</string>
 </resources>

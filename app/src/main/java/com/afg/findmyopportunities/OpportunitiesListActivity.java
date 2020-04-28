@@ -66,12 +66,14 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
     }
 
+    //    Sort Opportunities Alphabetically
     public void sortViewByName(View view){
        Collections.sort(opportunities, new OpportunitiesListActivity());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
     }
 
+    // Read Data from Firebase
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -123,13 +125,14 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         void onCallback(ArrayList<Opportunity> opportunities);
     }
 
-    //    Show Search Icon
+    //    Search
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint(getResources().getString(R.string.searchHint));
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -138,6 +141,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         return false;
     }
 
+    // Show matching opportunities based on query (while searching)
     @Override
     public boolean onQueryTextChange(String newText) {
 
