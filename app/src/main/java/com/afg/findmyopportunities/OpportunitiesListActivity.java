@@ -7,28 +7,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
-public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener, SearchView.OnQueryTextListener, Comparator<Opportunity> {
+public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener, SearchView.OnQueryTextListener, Comparator<Opportunity> {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
@@ -38,7 +32,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
 
     DatabaseReference database;
     DatabaseReference opportunities_ref;
-    CustomAdapter customAdapter;
+    RecyclerAdapter recyclerAdapter;
 
     private static final String TAG = "OppListActivity";
 
@@ -65,8 +59,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
                 }
 
                 opportunities = opportunityArrayList;
-                customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
-                recyclerview.setAdapter(customAdapter);
+                recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+                recyclerview.setAdapter(recyclerAdapter);
             }
         });
 
@@ -74,8 +68,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
 
     public void sortViewByName(View view){
        Collections.sort(opportunities, new OpportunitiesListActivity());
-        customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
-        recyclerview.setAdapter(customAdapter);
+        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+        recyclerview.setAdapter(recyclerAdapter);
     }
 
     private void readData(final FirebaseCallback firebaseCallback) {
@@ -158,7 +152,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
             }
         }
 
-        customAdapter.updateList(newList);
+        recyclerAdapter.updateList(newList);
         return false;
     }
 

@@ -1,25 +1,23 @@
 package com.afg.findmyopportunities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private static final String TAG = "CustomAdapter";
+    private static final String TAG = "RecyclerAdapter";
     private ArrayList<Opportunity> opportunities;
     private OnOpportunityListener onOpportunityListener;
     Context context;
 
-    public CustomAdapter(ArrayList<Opportunity> opportunities, Context context, OnOpportunityListener onOpportunityListener) {
+    public RecyclerAdapter(ArrayList<Opportunity> opportunities, Context context, OnOpportunityListener onOpportunityListener) {
         this.opportunities = opportunities;
         this.context = context;
         this.onOpportunityListener = onOpportunityListener;
