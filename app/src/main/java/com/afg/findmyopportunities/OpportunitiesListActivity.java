@@ -25,9 +25,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener, SearchView.OnQueryTextListener {
+public class OpportunitiesListActivity extends AppCompatActivity implements CustomAdapter.OnOpportunityListener, SearchView.OnQueryTextListener, Comparator<Opportunity> {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
@@ -39,7 +40,6 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
     DatabaseReference opportunities_ref;
     CustomAdapter customAdapter;
 
-    // Tag associated with class
     private static final String TAG = "OppListActivity";
 
     @Override
@@ -54,7 +54,6 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
         database = FirebaseDatabase.getInstance().getReference();
         opportunities_ref = database.child("");
         opportunities = new ArrayList<>();
-
 
         readData (new FirebaseCallback() {
             @Override
@@ -71,16 +70,13 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
             }
         });
 
-
     }
 
     public void sortViewByName(View view){
-       Collections.sort(opportunities, new NameComparator());
+       Collections.sort(opportunities, new OpportunitiesListActivity());
         customAdapter = new CustomAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(customAdapter);
     }
-
-
 
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -93,8 +89,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
 //                    GenericTypeIndicator<ArrayList<String>> x = new GenericTypeIndicator<ArrayList<String>>() {};
 //                    ArrayList<String> address = ds.child("Address").getValue(x);
 //                    ArrayList<String> contact = ds.child("Contact").getValue(x);
-                    String organizer = ds.child("Organizer").getValue(String.class);
-                    String location = ds.child("Location").getValue(String.class);
+                    String organizer = ds.child("Organized By").getValue(String.class);
+                    String location = ds.child("Where").getValue(String.class);
                     String description = ds.child("Description").getValue(String.class);
 
                     Opportunity opportunity = new Opportunity( ID, title, organizer, location, description );
@@ -121,6 +117,12 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Cust
         Intent intent = new Intent(this, DisplayOpportunityActivity.class);
         intent.putExtra("Opportunity", opportunities.get(position));
         startActivity(intent);
+    }
+
+//    Compares two Opportunities by title
+    @Override
+    public int compare(Opportunity o1, Opportunity o2) {
+        return o1.getTitle().compareTo(o2.getTitle());
     }
 
     private interface FirebaseCallback {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
+    private static final String TAG = "CustomAdapter";
     private ArrayList<Opportunity> opportunities;
     private OnOpportunityListener onOpportunityListener;
     Context context;

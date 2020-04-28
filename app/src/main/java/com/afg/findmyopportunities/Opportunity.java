@@ -2,14 +2,7 @@ package com.afg.findmyopportunities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import static java.util.Collections.*;
 
 public class Opportunity  implements Parcelable {
 
@@ -134,6 +127,7 @@ public class Opportunity  implements Parcelable {
         return 0;
     }
 
+    //    Assists in sending object to DisplayOpportunityActivity
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(ID);
@@ -145,17 +139,4 @@ public class Opportunity  implements Parcelable {
         parcel.writeString(description);
     }
 
-    public static ArrayList<Opportunity> sortByName (ArrayList<Opportunity> opportunities){
-       sort(opportunities, ByName);
-       return opportunities;
-    }
-
-    public static Comparator<Opportunity> ByName = new Comparator<Opportunity>(){
-
-        @Override
-        public int compare(Opportunity o1, Opportunity o2) {
-            return - o1.getTitle().compareTo(o2.getTitle());
-        }
-
-    };
 }
