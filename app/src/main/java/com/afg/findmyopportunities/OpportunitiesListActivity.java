@@ -1,5 +1,6 @@
 package com.afg.findmyopportunities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,34 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opportunities_list);
+
+        // BOTTOM NAVIGATION MENU
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.ic_home:
+                        Intent i1 = new Intent(OpportunitiesListActivity.this, MainActivity.class);
+                        startActivity(i1);
+                        break;
+
+                    case R.id.ic_search:
+                        break;
+
+                    case R.id.ic_profile:
+                        Intent i3 = new Intent(OpportunitiesListActivity.this, ProfileActivity.class);
+                        startActivity(i3);
+                        break;
+                }
+                return false;
+            }
+        });
+
         recyclerview = findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);

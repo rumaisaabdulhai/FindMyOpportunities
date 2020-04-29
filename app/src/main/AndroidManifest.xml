@@ -7,10 +7,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DisplayOpportunityActivity"></activity>
-        <activity android:name=".OpportunitiesListActivity" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".ProfileActivity" android:label="@string/Profile"/>
+        <activity android:name=".DisplayOpportunityActivity" />
+        <activity android:name=".StartActivity"  android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".OpportunitiesListActivity" android:label="@string/Opportunities" />
+        <activity
+            android:name=".MainActivity" android:label="@string/Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
