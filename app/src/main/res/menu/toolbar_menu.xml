@@ -14,26 +14,14 @@
         />
 
     <item
-        android:id="@+id/item2"
-        android:title="Item 2"
+        android:id="@+id/sortByLocation"
+        android:title="Sort By Location"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/item3"
-        android:title="Item 3"
+        android:id="@+id/sortByName"
+        android:title="Sort By Name"
         app:showAsAction="never">
-
-        <menu>
-
-            <item
-                android:id="@+id/subitem1"
-                android:title="Sub Item 1" />
-
-            <item
-                android:id="@+id/subitem2"
-                android:title="Sub Item 2" />
-
-        </menu>
 
     </item>
 

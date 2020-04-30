@@ -100,7 +100,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     }
 
     //    Sort Opportunities Alphabetically
-    public void sortViewByName(View view){
+    public void sortViewByName(View view) {
        Collections.sort(opportunities, new OpportunitiesListActivity());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
@@ -148,7 +148,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         startActivity(intent);
     }
 
-//    Compares two Opportunities by title
+    //    Compares two Opportunities by title
     @Override
     public int compare(Opportunity o1, Opportunity o2) {
         return o1.getTitle().compareTo(o2.getTitle());
@@ -196,17 +196,10 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item2:
-                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+            case R.id.sortByLocation:
                 return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subitem1:
-                Toast.makeText(this, "Sub Item 1 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subitem2:
-                Toast.makeText(this, "Sub Item 2 selected", Toast.LENGTH_SHORT).show();
+            case R.id.sortByName:
+                sortViewByName(findViewById(android.R.id.content).getRootView());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
