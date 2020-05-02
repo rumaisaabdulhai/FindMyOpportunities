@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileActivity"
+    tools:context=".LoginActivity"
     android:layout_marginTop="50sp">
 
     <LinearLayout
@@ -15,11 +15,11 @@
         android:layout_margin="20sp"
         android:layout_centerHorizontal="true">
 
-        <!--    SIGN IN    -->
+        <!--    SIGN UP    -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/signUpTitle"
+            android:text="@string/signInTitle"
             android:textSize="25sp"
             android:textColor="@color/textColor"
             android:textAlignment="center"
@@ -71,7 +71,7 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
 
-        <!--    SIGN UP    -->
+        <!--    SIGN IN    -->
         <TextView
             android:id="@+id/signUp"
             android:textAlignment="center"
@@ -81,7 +81,7 @@
             android:textColor="@color/textColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signInText" />
+            android:text="@string/signUpText" />
 
     </LinearLayout>
 
