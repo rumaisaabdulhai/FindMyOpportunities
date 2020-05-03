@@ -1,10 +1,16 @@
 package com.afg.findmyopportunities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DisplayOpportunityActivity extends AppCompatActivity {
 
@@ -32,6 +38,35 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             TextView location = findViewById(R.id.locationText);
             location.setText(opportunity.getLocation());
         }
+
+        // BOTTOM NAVIGATION MENU
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.ic_home:
+                        Intent i1 = new Intent(DisplayOpportunityActivity.this, MainActivity.class);
+                        startActivity(i1);
+                        break;
+
+                    case R.id.ic_search:
+                        Intent i2 = new Intent(DisplayOpportunityActivity.this, OpportunitiesListActivity.class);
+                        startActivity(i2);
+                        break;
+
+                    case R.id.ic_profile:
+                        Intent i3 = new Intent(DisplayOpportunityActivity.this, ProfileActivity.class);
+                        startActivity(i3);
+                        break;
+                }
+                return false;
+            }
+        });
 
     }
 }
