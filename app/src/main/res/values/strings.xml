@@ -13,9 +13,9 @@
     <string name="Opportunities">Opportunities</string>
     <string name="signUpTitle">Sign Up</string>
     <string name="signInTitle">Sign In</string>
-    <string name="enterText">Enter</string>
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
     <string name="signInText">Already have an account? Sign in here</string>
     <string name="signUpText">Not registered? Sign up here</string>
+    <string name="signOutTitle">Sign Out</string>
 </resources>
