@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.afg.findmyopportunities">
+    package="com.afg.helpout">
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name="com.afg.helpout.LoginActivity"></activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.afg.helpout.ProfileActivity"
             android:label="@string/Profile" />
-        <activity android:name=".DisplayOpportunityActivity" />
+        <activity android:name="com.afg.helpout.DisplayOpportunityActivity" />
         <activity
-            android:name=".StartActivity"
+            android:name="com.afg.helpout.StartActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".OpportunitiesListActivity"
+            android:name="com.afg.helpout.OpportunitiesListActivity"
             android:label="@string/Opportunities" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.afg.helpout.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

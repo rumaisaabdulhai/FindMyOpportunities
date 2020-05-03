@@ -1,4 +1,4 @@
-package com.afg.findmyopportunities;
+package com.afg.helpout;
 
 import org.junit.Test;
 

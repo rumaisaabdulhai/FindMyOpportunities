@@ -7,7 +7,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.afg.findmyopportunities"
+        applicationId 'com.afg.helpout'
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

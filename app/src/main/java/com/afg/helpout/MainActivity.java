@@ -1,4 +1,4 @@
-package com.afg.findmyopportunities;
+package com.afg.helpout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
