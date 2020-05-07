@@ -14,9 +14,9 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
     }
 
-    // After clicking get started button
-    public void openMain(View v) {
-        Intent intent = new Intent(this, MainActivity.class);
+    // go to the SignUpActivity
+    public void openSignUpActivity(View v) {
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
         finish();
     }

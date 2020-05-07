@@ -15,7 +15,13 @@
     <string name="signInTitle">Sign In</string>
     <string name="emailText">Email</string>
     <string name="passwordText">Password</string>
-    <string name="signInText">Already have an account? Sign in here</string>
-    <string name="signUpText">Not registered? Sign up here</string>
+    <string name="signInText">Already have an account?</string>
+    <string name="signUpText">Not registered?</string>
     <string name="signOutTitle">Sign Out</string>
+    <string name="RegisterText">First, Let\'s Register Your Account</string>
+    <string name="successfulLoginText">You have successfully signed in!</string>
+    <string name="welcomeBackText">Welcome Back to Help Out!</string>
+    <string name="backText">Back</string>
+    <string name="nextText">Next</string>
+    <string name="finishText">Finish</string>
 </resources>

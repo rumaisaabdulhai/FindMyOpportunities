@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity"
-    android:layout_marginTop="50sp">
+    android:layout_marginTop="50sp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,13 +24,13 @@
             android:layout_height="match_parent"
             android:text="@string/signInTitle"
             android:textSize="25sp"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorGray"
             android:textAlignment="center"
             android:fontFamily="@font/amiko"/>
 
         <!--    ENTER EMAIL    -->
         <EditText
-            android:id="@+id/emailText"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amiko"
@@ -39,7 +42,7 @@
 
         <!--    ENTER PASSWORD    -->
         <EditText
-            android:id="@+id/passwordText"
+            android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/amiko"
@@ -66,7 +69,7 @@
                 android:background="@drawable/outlined_button"
                 android:text="@string/signInTitle"
                 android:fontFamily="@font/amiko"
-                android:textColor="@color/textColor"
+                android:textColor="@color/colorGray"
                 android:textAllCaps="false"
                 android:textAlignment="center"
                 android:layout_centerInParent="true"/>
@@ -79,7 +82,7 @@
             android:layout_marginTop="20sp"
             android:fontFamily="@font/amiko"
             android:textSize="14sp"
-            android:textColor="@color/textColor"
+            android:textColor="@color/colorGray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signUpText" />
@@ -93,6 +96,7 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground" />
+        android:background="@drawable/rounded_nav"
+        app:labelVisibilityMode="unlabeled"/>
 
 </RelativeLayout>

@@ -17,7 +17,6 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
     private static final String TAG = "DisplayOppActivity";
 
     @Override
-    //Overides
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_opportunity);

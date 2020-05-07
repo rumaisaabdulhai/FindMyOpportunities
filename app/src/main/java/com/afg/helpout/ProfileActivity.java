@@ -32,10 +32,10 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        emailID = findViewById(R.id.emailText);
-        password = findViewById(R.id.passwordText);
+        emailID = findViewById(R.id.email);
+        password = findViewById(R.id.password);
         btnSignUp = findViewById(R.id.signUp);
-        tvSignIn = findViewById(R.id.signInText);
+        tvSignIn = findViewById(R.id.signInLink);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

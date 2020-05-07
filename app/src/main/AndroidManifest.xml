@@ -7,19 +7,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.afg.helpout.LoginActivity"></activity>
+        <activity android:name=".WalkthroughActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
-            android:name="com.afg.helpout.ProfileActivity"
+            android:name=".ProfileActivity"
             android:label="@string/Profile" />
-        <activity android:name="com.afg.helpout.DisplayOpportunityActivity" />
+        <activity android:name=".DisplayOpportunityActivity" />
         <activity
-            android:name="com.afg.helpout.StartActivity"
+            android:name=".StartActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.afg.helpout.OpportunitiesListActivity"
+            android:name=".OpportunitiesListActivity"
             android:label="@string/Opportunities" />
         <activity
-            android:name="com.afg.helpout.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,8 +35,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
