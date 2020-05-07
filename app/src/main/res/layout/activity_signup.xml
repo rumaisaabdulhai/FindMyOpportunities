@@ -67,7 +67,7 @@
 
             <!--    SIGN UP BUTTON    -->
             <Button
-                android:id="@+id/btnSignup"
+                android:id="@+id/signUp"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_button"
                 android:layout_marginTop="100dp"
