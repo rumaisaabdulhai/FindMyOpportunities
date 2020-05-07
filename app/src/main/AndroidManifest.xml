@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WalkthroughActivity"
+        <activity android:name=".WalkThroughActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".SignInActivity" />
         <activity android:name=".LoginActivity" />
@@ -15,9 +15,6 @@
             android:name=".ProfileActivity"
             android:label="@string/Profile" />
         <activity android:name=".DisplayOpportunityActivity" />
-        <activity
-            android:name=".StartActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".OpportunitiesListActivity"
             android:label="@string/Opportunities" />

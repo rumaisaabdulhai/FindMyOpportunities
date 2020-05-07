@@ -40,7 +40,7 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_headings = {
-            "Welcome to Help Out",
+            "Welcome to HelpOut",
             "Find Your Cause",
             "Save For Later",
             "Network with Organizations",

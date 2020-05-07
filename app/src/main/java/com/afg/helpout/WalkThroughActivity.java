@@ -4,21 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class WalkthroughActivity extends AppCompatActivity {
+public class WalkThroughActivity extends AppCompatActivity {
 
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
-
-    private SliderAdapter sliderAdapter;
 
     private TextView[] mDots;
 
@@ -41,7 +37,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         mNextButton = (Button) findViewById(R.id.nextButton);
         mStartButton = (Button) findViewById(R.id.startButton);
 
-        sliderAdapter = new SliderAdapter(this);
+        SliderAdapter sliderAdapter = new SliderAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
 
         addDotsIndicator(0);
@@ -67,7 +63,7 @@ public class WalkthroughActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WalkthroughActivity.this, MainActivity.class);
+                Intent intent = new Intent(WalkThroughActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -115,12 +111,12 @@ public class WalkthroughActivity extends AppCompatActivity {
 
                 mBackButton.setVisibility(View.INVISIBLE);
                 mStartButton.setVisibility(View.INVISIBLE);
+                mNextButton.setVisibility(View.VISIBLE);
 
                 mBackButton.setText("");
             }
 
             else if (i == mDots.length - 1) {
-
                 mNextButton.setEnabled(false);
                 mBackButton.setEnabled(true);
                 mStartButton.setEnabled(true);
@@ -130,21 +126,19 @@ public class WalkthroughActivity extends AppCompatActivity {
                 mStartButton.setVisibility(View.VISIBLE);
 
                 mBackButton.setText(R.string.backText);
-
             }
 
             else {
-
                 mNextButton.setEnabled(true);
                 mBackButton.setEnabled(true);
                 mStartButton.setEnabled(false);
 
                 mBackButton.setVisibility(View.VISIBLE);
+                mNextButton.setVisibility(View.VISIBLE);
                 mStartButton.setVisibility(View.INVISIBLE);
 
                 mNextButton.setText(R.string.nextText);
                 mBackButton.setText(R.string.backText);
-
             }
         }
 
@@ -155,3 +149,9 @@ public class WalkthroughActivity extends AppCompatActivity {
     };
 
 }
+
+//        // go to the SignUpActivity
+//        public void openSignUpActivity(View v) {
+//            Intent intent = new Intent(this, SignUpActivity.class);
+//            startActivity(intent);
+//            finish();
