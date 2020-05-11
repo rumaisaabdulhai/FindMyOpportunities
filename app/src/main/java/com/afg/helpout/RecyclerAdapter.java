@@ -4,9 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +37,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public MyViewHolder(@NonNull View itemView, OnOpportunityListener onOpportunityListener)
         {
             super(itemView);
-
             this.Title = itemView.findViewById(R.id.Title);
             this.Description = itemView.findViewById(R.id.Description);
             this.onOpportunityListener = onOpportunityListener;

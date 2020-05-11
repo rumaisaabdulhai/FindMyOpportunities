@@ -3,19 +3,19 @@
 
     <!--  HOME ICON  -->
     <item
-        android:id="@+id/ic_home"
+        android:id="@+id/ic_home_nav"
         android:icon="@drawable/ic_home"
         android:title="@string/Home" />
 
     <!--  SEARCH ICON  -->
     <item
-        android:id="@+id/ic_search"
+        android:id="@+id/ic_search_nav"
         android:icon="@drawable/ic_search"
         android:title="@string/Search" />
 
     <!--  PROFILE ICON  -->
     <item
-        android:id="@+id/ic_profile"
+        android:id="@+id/ic_profile_nav"
         android:icon="@drawable/ic_profile"
         android:title="@string/Profile" />
 

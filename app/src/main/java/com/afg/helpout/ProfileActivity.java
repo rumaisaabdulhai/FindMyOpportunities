@@ -2,21 +2,17 @@ package com.afg.helpout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -25,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button btnSignUp;
     TextView tvSignIn;
     FirebaseAuth mFirebaseAuth;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,21 +88,25 @@ public class ProfileActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.ic_home:
+                    case R.id.ic_home_nav:
                         Intent i1 = new Intent(ProfileActivity.this, MainActivity.class);
                         startActivity(i1);
                         break;
 
-                    case R.id.ic_search:
+                    case R.id.ic_search_nav:
                         Intent i2 = new Intent(ProfileActivity.this, OpportunitiesListActivity.class);
                         startActivity(i2);
                         break;
 
-                    case R.id.ic_profile:
+                    case R.id.ic_profile_nav:
                         break;
                 }
                 return false;
             }
         });
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
     }
 }

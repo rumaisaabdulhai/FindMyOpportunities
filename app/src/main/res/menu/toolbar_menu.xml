@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".OpportunitiesListActivity">
 
-    <!--    Search Icon -->
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_search"
-        android:title="Search"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        />
-
     <item
         android:id="@+id/sortByLocation"
         android:title="Sort By Location"
@@ -21,8 +12,15 @@
     <item
         android:id="@+id/sortByName"
         android:title="Sort By Name"
-        app:showAsAction="never">
+        app:showAsAction="never"/>
 
-    </item>
+    <!--    Search Icon -->
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_toolbar"
+        android:title="Search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        />
 
 </menu>

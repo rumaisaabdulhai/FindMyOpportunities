@@ -49,17 +49,17 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.ic_home:
+                    case R.id.ic_home_nav:
                         Intent i1 = new Intent(DisplayOpportunityActivity.this, MainActivity.class);
                         startActivity(i1);
                         break;
 
-                    case R.id.ic_search:
+                    case R.id.ic_search_nav:
                         Intent i2 = new Intent(DisplayOpportunityActivity.this, OpportunitiesListActivity.class);
                         startActivity(i2);
                         break;
 
-                    case R.id.ic_profile:
+                    case R.id.ic_profile_nav:
                         Intent i3 = new Intent(DisplayOpportunityActivity.this, ProfileActivity.class);
                         startActivity(i3);
                         break;

@@ -1,11 +1,5 @@
 package com.afg.helpout;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +18,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener, SearchView.OnQueryTextListener, Comparator<Opportunity> {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener, Comparator<Opportunity>, SearchView.OnQueryTextListener {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
@@ -35,6 +36,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     DatabaseReference database;
     DatabaseReference opportunities_ref;
     RecyclerAdapter recyclerAdapter;
+
+    Toolbar toolbar;
 
     private static final String TAG = "OppListActivity";
 
@@ -54,15 +57,15 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.ic_home:
+                    case R.id.ic_home_nav:
                         Intent i1 = new Intent(OpportunitiesListActivity.this, MainActivity.class);
                         startActivity(i1);
                         break;
 
-                    case R.id.ic_search:
+                    case R.id.ic_search_nav:
                         break;
 
-                    case R.id.ic_profile:
+                    case R.id.ic_profile_nav:
                         Intent i3 = new Intent(OpportunitiesListActivity.this, ProfileActivity.class);
                         startActivity(i3);
                         break;
@@ -70,6 +73,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                 return false;
             }
         });
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         recyclerview = findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this);
@@ -148,7 +154,34 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     //    Compares two Opportunities by title
     @Override
     public int compare(Opportunity o1, Opportunity o2) {
-        return o1.getTitle().compareTo(o2.getTitle());
+        try { return o1.getTitle().compareTo(o2.getTitle()); }
+        catch (NullPointerException ignored) { }
+        return 0;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String userInput = newText.toLowerCase();
+        ArrayList<Opportunity> newList = new ArrayList<>();
+
+        try {
+            for (Opportunity opportunity: opportunities)
+            {
+                String title = opportunity.getTitle().toLowerCase();
+                String description = opportunity.getDescription().toLowerCase();
+                if (title.contains(userInput) | description.contains(userInput))
+                    newList.add(opportunity);
+            }
+        }
+        catch (NullPointerException ignored) { }
+
+        recyclerAdapter.updateList(newList);
+        return true;
     }
 
     private interface FirebaseCallback {
@@ -163,37 +196,14 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getResources().getString(R.string.searchHint));
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    // Show matching opportunities based on query (while searching)
-    @Override
-    public boolean onQueryTextChange(String newText) {
-
-        String userInput = newText.toLowerCase();
-        ArrayList<Opportunity> newList = new ArrayList<>();
-
-        for (Opportunity opportunity: opportunities)
-        {
-            if (opportunity.getTitle().toLowerCase().contains(userInput) | opportunity.getDescription().toLowerCase().contains(userInput))
-            {
-               newList.add(opportunity);
-            }
-        }
-
-        recyclerAdapter.updateList(newList);
-        return false;
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sortByLocation:
+            case R.id.action_search:
                 return true;
             case R.id.sortByName:
                 sortViewByName(findViewById(android.R.id.content).getRootView());

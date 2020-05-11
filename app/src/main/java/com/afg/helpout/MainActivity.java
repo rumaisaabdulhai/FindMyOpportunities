@@ -2,6 +2,7 @@ package com.afg.helpout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogout;
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +54,15 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    case R.id.ic_home:
+                    case R.id.ic_home_nav:
                         break;
 
-                    case R.id.ic_search:
+                    case R.id.ic_search_nav:
                         Intent i2 = new Intent(MainActivity.this, OpportunitiesListActivity.class);
                         startActivity(i2);
                         break;
 
-                    case R.id.ic_profile:
+                    case R.id.ic_profile_nav:
                         Intent i3 = new Intent(MainActivity.this, ProfileActivity.class);
                         startActivity(i3);
                         break;
@@ -68,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
     }
 }
