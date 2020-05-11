@@ -18,36 +18,22 @@
             android:layout_width="match_parent"
             android:fontFamily="sans-serif"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
-            <!--    TITLE LAYOUT    -->
-            <LinearLayout
+            <!-- Title Text of the Opportunity -->
+            <TextView
+                android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-
-                <!-- Title Label of the Opportunity -->
-                <TextView
-                    android:id="@+id/Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Title:  "
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-                <!-- Title Text of the Opportunity -->
-                <TextView
-                    android:id="@+id/titleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Title Text"
-                    android:textColor="@color/colorGray"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-            </LinearLayout>
+                android:text="Title"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:textStyle="bold" />
 
             <!--    DESCRIPTION LAYOUT    -->
             <LinearLayout
