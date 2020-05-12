@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name:  "
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="Joe Smith"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -75,21 +75,19 @@
                 android:layout_height="wrap_content"
                 android:text="Phone:  "
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123 456 7890"
+                android:text="(123) 456 7890"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="Email:  "
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -114,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:text="jsmith@example.com"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -133,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:text="Password:  "
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -142,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:text="******"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -161,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:text="Account Type: "
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -170,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:text="Volunteer"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
