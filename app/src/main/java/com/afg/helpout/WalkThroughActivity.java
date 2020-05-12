@@ -143,15 +143,7 @@ public class WalkThroughActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onPageScrollStateChanged(int i) {
-
-        }
+        public void onPageScrollStateChanged(int i) { }
     };
 
 }
-
-//        // go to the SignUpActivity
-//        public void openSignUpActivity(View v) {
-//            Intent intent = new Intent(this, SignUpActivity.class);
-//            startActivity(intent);
-//            finish();

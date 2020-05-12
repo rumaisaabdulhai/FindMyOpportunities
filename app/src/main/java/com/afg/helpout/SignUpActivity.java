@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
@@ -83,7 +84,10 @@ public class SignUpActivity extends AppCompatActivity {
                             // Report Error
                             if (!task.isSuccessful())
                                 Toast.makeText(SignUpActivity.this, "Sign Up Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
-                                // Go to ConfirmLoginActivity
+                            else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(SignUpActivity.this, "This user already exists",  Toast.LENGTH_SHORT).show();
+                            }
+                            // Go to ConfirmLoginActivity
                             else
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         }

@@ -82,7 +82,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         recyclerview.setLayoutManager(layoutManager);
 
         database = FirebaseDatabase.getInstance().getReference();
-        opportunities_ref = database.child("");
+        opportunities_ref = database.child("Opportunities");
         opportunities = new ArrayList<>();
 
         readData (new FirebaseCallback() {

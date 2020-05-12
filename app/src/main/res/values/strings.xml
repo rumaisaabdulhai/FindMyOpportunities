@@ -18,7 +18,7 @@
     <string name="signInText">Already have an account?</string>
     <string name="signUpText">Not registered?</string>
     <string name="signOutTitle">Sign Out</string>
-    <string name="RegisterText">First, Let\'s Register Your Account</string>
+    <string name="RegisterText">Let\'s Register Your Account</string>
     <string name="successfulLoginText">You have successfully signed in!</string>
     <string name="welcomeBackText">Welcome Back to Help Out!</string>
     <string name="backText">Back</string>
