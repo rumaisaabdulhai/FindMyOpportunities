@@ -33,22 +33,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="70sp">
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="60dp"-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <!--    ENTER EMAIL    -->
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:fontFamily="@font/amiko"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 android:background="@drawable/custom_button"
                 android:paddingLeft="30dp"
@@ -64,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:fontFamily="@font/amiko"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorText"
                 android:textSize="20sp"
                 android:background="@drawable/custom_button"
                 android:paddingLeft="30dp"

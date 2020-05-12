@@ -7,6 +7,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#ae52d4</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorGray">#456</color>
+    <color name="colorPaleWhite">#B2FFFFFF</color>
+<!--    <color name="colorText">#456</color>-->
+    <color name="colorText">@color/colorPrimaryDark</color>
     <color name="colorTransparentWhite">#cccccc</color>
 </resources>

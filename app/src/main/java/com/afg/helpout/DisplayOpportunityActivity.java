@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DisplayOpportunityActivity extends AppCompatActivity {
 
+    // Variables
     private static final String TAG = "DisplayOppActivity";
 
     @Override
@@ -21,6 +22,7 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_opportunity);
 
+        // Passing In Object From OpportunityListActivity
         if (getIntent().hasExtra("Opportunity"))
         {
             Opportunity opportunity = getIntent().getParcelableExtra("Opportunity");

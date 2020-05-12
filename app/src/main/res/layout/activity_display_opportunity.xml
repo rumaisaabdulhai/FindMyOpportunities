@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Description Text"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Organizer Text"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Location Text"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -133,8 +133,8 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:itemIconTint="@color/nav_color"
-        app:itemTextColor="@color/nav_color"
+        app:itemIconTint="@color/color_selector"
+        app:itemTextColor="@color/color_selector"
         app:menu="@menu/bottom_navigation_menu"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_nav"

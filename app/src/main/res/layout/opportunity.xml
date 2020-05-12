@@ -30,7 +30,7 @@
             android:maxLines="2"
             android:fontFamily="sans-serif"
             android:text="Description"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/colorText"
             android:textSize="20sp" />
 
 </LinearLayout>

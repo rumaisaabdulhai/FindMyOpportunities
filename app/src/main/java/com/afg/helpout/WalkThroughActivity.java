@@ -63,7 +63,7 @@ public class WalkThroughActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WalkThroughActivity.this, MainActivity.class);
+                Intent intent = new Intent(WalkThroughActivity.this, SignInActivity.class);
                 startActivity(intent);
                 finish();
             }
