@@ -111,7 +111,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
              * Populates the Opportunity ArrayList and displays the Opportunities by
              * creating and setting the RecyclerAdapter.
              *
-             * @param opportunityArrayList The Opportunity ArrayList passed in from the readData method
+             * @param opportunityArrayList The Opportunity ArrayList passed in from the readData method.
              */
             @Override
             public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
@@ -145,6 +145,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
+                    // Open MainActivity
                     case R.id.ic_home_nav:
                         Intent i1 = new Intent(OpportunitiesListActivity.this, MainActivity.class);
                         startActivity(i1);
@@ -153,21 +154,31 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     case R.id.ic_search_nav:
                         break;
 
+                    // Open ProfileActivity
                     case R.id.ic_profile_nav:
                         Intent i3 = new Intent(OpportunitiesListActivity.this, ProfileActivity.class);
                         startActivity(i3);
                         break;
                 }
+                // Return false if not selected
                 return false;
             }
         });
 
     }
 
-    // Read Data from Firebase
-    // Load the first 10 opportunities and run a lightweight async to keep uploading
+    /**
+     *
+     * @param firebaseCallback the In
+     */
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
+            /**
+             * Reads Data from Firebase.
+             *
+             * Loa
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -191,6 +202,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
             }
 
+            /**
+             * @param databaseError
+             */
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d( TAG, databaseError.getMessage() );
@@ -201,11 +215,15 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         opportunities_ref.addValueEventListener(valueEventListener);
     }
 
-    //    Open Opportunity Activity on click
+    /**
+     * Opens DisplayOpportunityActivity when clicked.
+     *
+     * @param index The Index of the Opportunity in the ArrayList.
+     */
     @Override
-    public void onOpportunityClick(int position) {
+    public void onOpportunityClick(int index) {
         Intent intent = new Intent(this, DisplayOpportunityActivity.class);
-        intent.putExtra("Opportunity", opportunities.get(position));
+        intent.putExtra("Opportunity", opportunities.get(index));
         startActivity(intent);
     }
 
@@ -214,6 +232,12 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         return false;
     }
 
+    /**
+     * Filters and Updates the RecyclerView when User Searches.
+     *
+     * @param newText The user input
+     * @return true
+     */
     @Override
     public boolean onQueryTextChange(String newText) {
         String userInput = newText.toLowerCase();
@@ -234,16 +258,31 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         return true;
     }
 
+    /**
+     * For Implementing Compare Methods
+     *
+     * @param o1 The first Opportunity
+     * @param o2 The second Opportunity
+     * @return
+     */
     @Override
-    public int compare(Opportunity o1, Opportunity o2) {
-        return 0;
-    }
+    public int compare(Opportunity o1, Opportunity o2) { return 0; }
 
+    /**
+     * FirebaseCallback Interface
+     */
     private interface FirebaseCallback {
         void onCallback(ArrayList<Opportunity> opportunities);
     }
 
-    //Search
+    /**
+     * Inflates the Toolbar Menu for
+     * 1. The Overflow Menu containing the Sort By Items
+     * 2. The Search Item
+     *
+     * @param menu The Menu Object
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -254,13 +293,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         return true;
     }
 
+    /**
+     * Handles Clicks on the Toolbar Menu.
+     * Calls the Appropriate Sort Methods when Item is Clicked.
+     *
+     * @param item The chosen MenuItem.
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sortByLocation:
                 sortViewByLocation(findViewById(android.R.id.content).getRootView());
-            case R.id.action_search:
-                return true;
             case R.id.sortByName:
                 sortViewByName(findViewById(android.R.id.content).getRootView());
                 return true;
@@ -269,23 +313,28 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         }
     }
 
-
-
-    //BELOW METHODS ARE USED FOR SORTING THE RECYCLER VIEW
-
-    //    Sort Opportunities Alphabetically
+    /**
+     * Sorts Opportunities Alphabetically by Name
+     * and Updates the RecyclerView.
+     *
+     * @param view The View object.
+     */
     public void sortViewByName(View view) {
         Collections.sort(opportunities, new TitleSorter());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
     }
 
-
-    // Use the information from the dialog to sort the RecyclerView by distance.
+    /**
+     * Uses the information from the dialog to sort the RecyclerView by distance.
+     *
+     * @param town The desired Town input from the User.
+     * @param state The desired State input from the User.
+     */
     @Override
     public void applyTexts(String town, String state) {
-        Log.v("MyActivity", "Town and state: " + town + " " + state);
-        userAddress = MapQuestHelper.formatAddress(town + ","+state);
+        Log.v(TAG, "Town and state: " + town + " " + state);
+        userAddress = MapQuestHelper.formatAddress(town + "," + state);
         userAddress = userAddress.replaceAll(", ", ",");
         userAddress = userAddress.replaceAll(" ,", ",");
         userAddress = userAddress.replaceAll(" ", "+");
@@ -293,21 +342,34 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             MapQuestAPITask mpTask = new MapQuestAPITask(this);
 
             place = mpTask.execute(userAddress).get();
-            for(Opportunity o: opportunities){
+
+            // For each opportunity, calculates distance by latitude and
+            // longitude using the PlaceData Class.
+            for (Opportunity o: opportunities){
                 double lat1 = place.getLatitude(); double long1 = place.getLongitude();
                 double lat2 = o.getLatitude(); double long2 = o.getLongitude();
                 o.setDistance(PlaceData.distance(lat1, long1, lat2, long2));
             }
 
+            // Sorts by Distance
             Collections.sort(opportunities, new DistanceSorter());
+
+            // Update the RecyclerView
             recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
             recyclerview.setAdapter(recyclerAdapter);
+
+        // Catches error
         } catch (Exception e) {
-            Log.v("MyActivity", "Setting distances error" + e.toString());
+            Log.v(TAG, "Setting distances error" + e.toString());
         }
     }
 
-
+    /**
+     * Sorts Opportunities by Location
+     * and Updates the RecyclerView.
+     *
+     * @param view the View object.
+     */
     public void sortViewByLocation(View view) {
         openDialog();
         Collections.sort(opportunities, new DistanceSorter());
@@ -315,11 +377,12 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         recyclerview.setAdapter(recyclerAdapter);
     }
 
-
-    public void openDialog(){
+    /**
+     * Opens the Location Dialog.
+     */
+    public void openDialog() {
         LocationDialog locationDialog = new LocationDialog();
         locationDialog.show(getSupportFragmentManager(), "Location Dialog");
-
     }
 
 }

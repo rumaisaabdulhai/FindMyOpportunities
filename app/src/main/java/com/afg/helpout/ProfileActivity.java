@@ -12,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 /**
- * Displays the Profile for the User (to be implemented)
+ * The ProfileActivity Class
+ *
+ * Displays the Profile for the User (to be implemented).
+ *
  */
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,32 +29,45 @@ public class ProfileActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     /**
-     * @param savedInstanceState
+     * This is the onCreate Method for ProfileActivity.
+     *
+     * When called, it displays the Profile Information for the User that
+     * is Logged in (to be implemented).
+     *
+     * It also handles clicks for the BottomNavigationView.
+     *
+     * @param savedInstanceState State of the UI Controller.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Sets the Custom Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // BOTTOM NAVIGATION MENU
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(INDEX);
-        menuItem.setChecked(true);
+        menuItem.setChecked(true); // Changes Icon Color of Current Activity Selected
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             /**
-             * @param item
-             * @return
+             * @param item The Item that is selected from the BottomNavigationMenu
+             * @return true if the item is selected, false otherwise
              */
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
+                    // Open MainActivity
                     case R.id.ic_home_nav:
                         Intent i1 = new Intent(ProfileActivity.this, MainActivity.class);
                         startActivity(i1);
                         break;
 
+                    // Open OpportunitiesListActivity
                     case R.id.ic_search_nav:
                         Intent i2 = new Intent(ProfileActivity.this, OpportunitiesListActivity.class);
                         startActivity(i2);
@@ -60,16 +76,13 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.ic_profile_nav:
                         break;
                 }
+                // Return false if not selected
                 return false;
             }
         });
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
     }
 }
-
 
 //        btnLogout = findViewById(R.id.signOut);
 //        btnLogout.setOnClickListener(new View.OnClickListener() {

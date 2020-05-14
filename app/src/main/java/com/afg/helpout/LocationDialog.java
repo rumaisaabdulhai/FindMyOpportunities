@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 /**
  * The LocationDialog Class
  *
- * TODO Complete Documentation
+ * TODO: Complete Documentation
  */
 public class LocationDialog extends AppCompatDialogFragment {
 
@@ -23,6 +23,13 @@ public class LocationDialog extends AppCompatDialogFragment {
     private EditText state;
     private LocationDialogListener listener;
 
+    /**
+     *
+     * TODO: Complete Documentation
+     *
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
@@ -37,12 +44,23 @@ public class LocationDialog extends AppCompatDialogFragment {
 
         // Create Pop Up Screen
         builder.setView(view).setTitle("Set Location").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            /**
+             *
+             * TODO: Complete Documentation
+             *
+             * @param dialog
+             * @param which
+             */
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         })
         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            /**
+             * @param dialog
+             * @param which
+             */
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String town = LocationDialog.this.town.getText().toString();
@@ -54,6 +72,12 @@ public class LocationDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    /**
+     *
+     * TODO: Complete Documentation
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -65,7 +89,17 @@ public class LocationDialog extends AppCompatDialogFragment {
         }
     }
 
+    /**
+     * LocationDialogListener Interface
+     */
     public interface LocationDialogListener{
+        /**
+         *
+         * TODO: Complete Documentation
+         *
+         * @param town
+         * @param state
+         */
         void applyTexts(String town, String state);
     }
 

@@ -26,6 +26,9 @@ public class SignInActivity extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,9 @@ public class SignInActivity extends AppCompatActivity {
         tvSignUp = findViewById(R.id.signInLink);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            /**
+             * @param firebaseAuth
+             */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
@@ -55,6 +61,9 @@ public class SignInActivity extends AppCompatActivity {
         };
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * @param view
+             */
             @Override
             public void onClick(View view) {
 
@@ -73,6 +82,9 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else if (!(email.isEmpty() && pwd.isEmpty())) {
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
+                        /**
+                         * @param task
+                         */
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
@@ -92,6 +104,9 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
+            /**
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
@@ -100,6 +115,9 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();

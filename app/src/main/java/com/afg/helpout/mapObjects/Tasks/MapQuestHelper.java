@@ -1,19 +1,25 @@
 package com.afg.helpout.mapObjects.Tasks;
 
 import android.util.Log;
+
 import com.afg.helpout.mapObjects.PlaceData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
+/**
+ *
+ */
 public class MapQuestHelper {
 
     public static String mapQuestLocationCheckURL = "http://open.mapquestapi.com/geocoding/v1/address?key=Hb3sWa29kDtCejsxywMUoha9IfphfmbF&location=";
     public static String debuggingLocation = "1600+Pennsylvania+Ave+NW,Washington,DC";
 
 
+    /**
+     * @param jsonStr
+     * @return
+     */
         public static PlaceData extractJSONplaceData(String jsonStr){
             PlaceData place = new PlaceData();
             if(jsonStr.length() == 0){ //Check if MapQuest couldn't find the location.
@@ -50,6 +56,10 @@ public class MapQuestHelper {
             return place;
         }
 
+    /**
+     * @param JSONAddressInput
+     * @return
+     */
     public static String formatAddress(String JSONAddressInput){ // Format an input address string correctly for the MapQuest query
         if(JSONAddressInput.charAt(0)=='['){
             JSONAddressInput = JSONAddressInput.replaceAll(", ", ",");

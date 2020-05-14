@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * The WalkThroughActivity Class
+ *
+ * TODO: Complete Documentation
+ *
+ */
 public class WalkThroughActivity extends AppCompatActivity {
 
     private ViewPager mSlideViewPager;
@@ -25,6 +31,11 @@ public class WalkThroughActivity extends AppCompatActivity {
 
     private int mCurrentPage;
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +82,11 @@ public class WalkThroughActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param position
+     */
     public void addDotsIndicator(int position) {
 
         mDots = new TextView[5];
@@ -99,6 +115,11 @@ public class WalkThroughActivity extends AppCompatActivity {
 
         }
 
+        /**
+         * TODO: Complete Documentation
+         *
+         * @param i
+         */
         @Override
         public void onPageSelected(int i) {
             addDotsIndicator(i);

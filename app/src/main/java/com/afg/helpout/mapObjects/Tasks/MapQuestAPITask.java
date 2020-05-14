@@ -1,6 +1,5 @@
 package com.afg.helpout.mapObjects.Tasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,14 +9,16 @@ import com.afg.helpout.OpportunitiesListActivity;
 import com.afg.helpout.mapObjects.PlaceData;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
+/**
+ *
+ */
 public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
-    private ProgressDialog progDialog;
+
+
     private Context context;
     private OpportunitiesListActivity activity;
     private static final String debugTag = "MyActivity";
@@ -25,6 +26,9 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     private String[] params;
     public static PlaceData place;
 
+    /**
+     * @param activity
+     */
     public MapQuestAPITask(OpportunitiesListActivity activity){
         super();
         this.activity = activity;
@@ -32,19 +36,19 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
 
     }
 
-    //@Override
-    protected void onPreExecute(String...params){
-        super.onPreExecute();
-        progDialog = ProgressDialog.show(this.activity, "Looking...", "Getting the exact location of the selected place.");
-        doInBackground(params);
-    }
-
+    /**
+     * @param params
+     * @return
+     */
     @Override
     protected PlaceData doInBackground(String...params) {
         String jsonRequest = queryMapQuest(params[0]);
         return readJSON(jsonRequest);
     }
 
+    /**
+     * @param result
+     */
     @Override
     //Retrieve User Location
     protected void onPostExecute(PlaceData result){
@@ -55,6 +59,10 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
 
     //IMPLEMENTS BACKGROUND TASK METHODS
 
+    /**
+     * @param userAddress
+     * @return
+     */
     private String queryMapQuest(String userAddress){
         try{
             String address = userAddress;
@@ -96,6 +104,10 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     }
 
 
+    /**
+     * @param result
+     * @return
+     */
     private PlaceData readJSON(String result){
 
         PlaceData placeData;

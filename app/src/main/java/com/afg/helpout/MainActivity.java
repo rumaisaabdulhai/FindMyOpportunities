@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    // Open MainActivity
                     case R.id.ic_home_nav:
                         break;
 
@@ -173,18 +172,29 @@ public class MainActivity extends AppCompatActivity {
             fragmentTitles.add(title);
         }
 
+        /**
+         * @param position The Index of the Item
+         * @return The Fragment object
+         */
         @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
 
+        /**
+         * @return The number of Pages in the ViewPagerAdapter
+         */
         @Override
         public int getCount() {
             return fragments.size();
         }
 
 
+        /**
+         * @param position The Index of the Page
+         * @return The Title of the Fragment as a CharSequence
+         */
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {

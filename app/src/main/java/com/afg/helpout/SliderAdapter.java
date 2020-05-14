@@ -11,11 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+/**
+ * TODO: Complete Documentation
+ */
 public class SliderAdapter extends PagerAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
 
+    /**
+     * TODO: Complete Documentation
+     * @param context
+     */
     public SliderAdapter(Context context) {
 
         this.context = context;
@@ -55,16 +62,35 @@ public class SliderAdapter extends PagerAdapter {
             "",
     };
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @return
+     */
     @Override
     public int getCount() {
         return slide_headings.length;
     }
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param view
+     * @param o
+     * @return
+     */
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
         return view == (RelativeLayout) o;
     }
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param container
+     * @param position
+     * @return
+     */
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -89,6 +115,13 @@ public class SliderAdapter extends PagerAdapter {
         return view;
     }
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param container
+     * @param position
+     * @param object
+     */
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 

@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * TODO: Complete Documentation
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     // initializing fields
@@ -27,6 +30,11 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,11 @@ public class SignUpActivity extends AppCompatActivity {
         // Firebase Listener
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param firebaseAuth
+             */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,6 +69,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Listener for Sign Up Button
         mButtonSignUp.setOnClickListener(new View.OnClickListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param view
+             */
             @Override
             public void onClick(View view) {
 
@@ -97,6 +115,11 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Listener for Sign in Link at Bottom
         mSignInLink.setOnClickListener(new View.OnClickListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
