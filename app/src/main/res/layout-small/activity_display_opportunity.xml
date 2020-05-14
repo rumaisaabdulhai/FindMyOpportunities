@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DisplayOpportunityActivity"
+    android:orientation="vertical"
+    android:paddingTop="15dp">
+
+    <!--  SCROLL VIEW  -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav">
+
+        <!--    START PARENT LINEAR LAYOUT    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:fontFamily="sans-serif"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <!-- Title Text of the Opportunity -->
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textStyle="bold" />
+
+            <!--    DESCRIPTION LAYOUT    -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <!-- Description Label of the Opportunity -->
+                <TextView
+                    android:id="@+id/Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description:  "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Description Text of the Opportunity -->
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description Text"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <!--    ORGANIZER LAYOUT    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <!-- Organizer Label of the Opportunity -->
+                <TextView
+                    android:id="@+id/Organizer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organizer:  "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Organizer Text of the Opportunity -->
+                <TextView
+                    android:id="@+id/organizerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organizer Text"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+
+            <!--    LOCATION LAYOUT    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <!-- Location Label of the Opportunity -->
+                <TextView
+                    android:id="@+id/Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location:  "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Location Text of the Opportunity -->
+                <TextView
+                    android:id="@+id/locationText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location Text"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--    END PARENT LINEAR LAYOUT    -->
+
+    </ScrollView>
+
+    <!--    BOTTOM NAV MENU    -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:itemIconTint="@color/color_selector"
+        app:itemTextColor="@color/color_selector"
+        app:menu="@menu/bottom_navigation_menu"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_nav"
+        app:labelVisibilityMode="labeled" />
+
+</RelativeLayout>

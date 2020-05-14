@@ -85,9 +85,6 @@ public class SignUpActivity extends AppCompatActivity {
                             // Report Error
                             if (!task.isSuccessful())
                                 Toast.makeText(SignUpActivity.this, "Sign Up Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
-                            else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(SignUpActivity.this, "This user already exists",  Toast.LENGTH_SHORT).show();
-                            }
                             // Go to ConfirmLoginActivity
                             else
                                 startActivity(new Intent(SignUpActivity.this, MainActivity.class));

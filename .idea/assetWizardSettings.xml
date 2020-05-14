@@ -51,7 +51,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="58" />
+                                                <entry key="scalingPercent" value="70" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -62,8 +62,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/app_icon.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/Untitled_Artwork.png" />
+                                      <entry key="legacyIconShape" value="CIRCLE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -147,8 +147,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_favorites" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/star-24px.svg" />
+                            <entry key="outputName" value="ic_arrow_back" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/arrow_back_ios-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>
