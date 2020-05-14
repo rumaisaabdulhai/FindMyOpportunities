@@ -48,7 +48,6 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.organizer = organizer;
         this.location = location;
         this.description = description;
-
         this.latitude = latitude;
         this.longitude = longitude;
         this.distance = 0;

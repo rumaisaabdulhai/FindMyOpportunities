@@ -28,40 +28,119 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The OpportunitiesListActivity Class
+ *
+ * Displays the Opportunities from Firebase in the RecyclerView.
+ *
+ * Reads information from Firebase,
+ * Handles Searches with the Search Bar,
+ * Handles Clicks on Each Opportunity
+ * Implements Sorting by Name and Location
+ */
 public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener,
-        Comparator<Opportunity>,
-        SearchView.OnQueryTextListener,
-        LocationDialog.LocationDialogListener {
+                                                                            Comparator<Opportunity>,
+                                                                            SearchView.OnQueryTextListener,
+                                                                            LocationDialog.LocationDialogListener {
 
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView recyclerview;
-    String userAddress = "";
+    // TAG for logging
+    private static final String TAG = "OppListActivity";
 
-    // ArrayList of opportunities
-    ArrayList<Opportunity> opportunities;
+    // Index of the Activity for the BottomNavigationView
+    public static final int INDEX = 1;
 
-    DatabaseReference database;
-    DatabaseReference opportunities_ref;
-    RecyclerAdapter recyclerAdapter;
-
-    PlaceData place; //User Location
-
+    // Custom Toolbar
     Toolbar toolbar;
 
-    private static final String TAG = "MyActivity";
+    // RecyclerView Variables
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerview;
+    RecyclerAdapter recyclerAdapter;
 
+    // Firebase Variables
+    DatabaseReference database;
+    DatabaseReference opportunities_ref;
+
+    // ArrayList that holds the opportunities
+    ArrayList<Opportunity> opportunities;
+
+    // User Information
+    String userAddress = "";
+    PlaceData place;
+
+    /**
+     * This is the onCreate Method for OpportunitiesListActivity.
+     *
+     * When called, it sets the RecyclerView,
+     * Reads data from Firebase, and
+     * Displays the title and description of
+     * each opportunity in a list format.
+     *
+     * It also handles clicks for the BottomNavigationView.
+     *
+     * @param savedInstanceState State of the UI Controller.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opportunities_list);
 
+        // Sets the Custom Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Sets the RecyclerView in the Layout
+        recyclerview = findViewById(R.id.my_recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerview.setLayoutManager(layoutManager);
+
+        // Gets instance of the Firebase Database
+        database = FirebaseDatabase.getInstance().getReference();
+
+        // Reads from the "Opportunities" child in the database
+        opportunities_ref = database.child("Opportunities");
+
+        // Initializes the Opportunity ArrayList
+        opportunities = new ArrayList<>();
+
+        // Read Data from the Database
+        readData (new FirebaseCallback() {
+            /**
+             * Callback Method implementation of the FirebaseCallback interface.
+             *
+             * Populates the Opportunity ArrayList and displays the Opportunities by
+             * creating and setting the RecyclerAdapter.
+             *
+             * @param opportunityArrayList The Opportunity ArrayList passed in from the readData method
+             */
+            @Override
+            public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
+
+                for (Opportunity opportunity: opportunityArrayList) {
+                    Log.d(TAG, "onCallback:" +
+                                    "\nTitle: " + opportunity.getTitle() +
+                                    "\nDescription: " + opportunity.getDescription());
+                }
+
+                // Populates the opportunityArrayList
+                opportunities = opportunityArrayList;
+
+                // Creates a new RecyclerAdapter with the Opportunity ArrayList
+                recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+                recyclerview.setAdapter(recyclerAdapter);
+            }
+        });
+
         // BOTTOM NAVIGATION MENU
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
+        MenuItem menuItem = menu.getItem(INDEX);
+        menuItem.setChecked(true); // Changes Icon Color of Current Activity Selected
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            /**
+             * @param item The Item that is selected from the BottomNavigationMenu
+             * @return true if the item is selected, false otherwise
+             */
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -80,32 +159,6 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                         break;
                 }
                 return false;
-            }
-        });
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        recyclerview = findViewById(R.id.my_recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerview.setLayoutManager(layoutManager);
-
-        database = FirebaseDatabase.getInstance().getReference();
-        opportunities_ref = database.child("Opportunities");
-        opportunities = new ArrayList<>();
-
-        readData (new FirebaseCallback() {
-            @Override
-            public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
-
-                for (Opportunity opportunity: opportunityArrayList) {
-                    Log.d(TAG, "\nTitle: " + opportunity.getTitle() +
-                                    "\nDescription: " + opportunity.getDescription());
-                }
-
-                opportunities = opportunityArrayList;
-                recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
-                recyclerview.setAdapter(recyclerAdapter);
             }
         });
 

@@ -11,10 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+/**
+ * Displays the Profile for the User (to be implemented)
+ */
 public class ProfileActivity extends AppCompatActivity {
 
+    // TAG for logging
+    private static final String TAG = "ProfileActivity";
+
+    // Index of the Activity for the BottomNavigationView
+    public static final int INDEX = 2;
+
+    // Custom Toolbar
     Toolbar toolbar;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +36,13 @@ public class ProfileActivity extends AppCompatActivity {
         // BOTTOM NAVIGATION MENU
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
+        MenuItem menuItem = menu.getItem(INDEX);
         menuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            /**
+             * @param item
+             * @return
+             */
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -52,3 +69,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 }
+
+
+//        btnLogout = findViewById(R.id.signOut);
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FirebaseAuth.getInstance().signOut();
+//                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+//                startActivity(intent);
+//            }
+//        });

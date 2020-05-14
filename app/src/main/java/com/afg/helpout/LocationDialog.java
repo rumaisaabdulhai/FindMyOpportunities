@@ -11,21 +11,31 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+/**
+ * The LocationDialog Class
+ *
+ * TODO Complete Documentation
+ */
 public class LocationDialog extends AppCompatDialogFragment {
-    private EditText editTextTown;
-    private EditText editTextState;
+
+    // Initializing Variables
+    private EditText town;
+    private EditText state;
     private LocationDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // Initialize Pop Up Screen
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
-        editTextTown = view.findViewById(R.id.edit_town);
-        editTextState = view.findViewById(R.id.edit_state);
+        // Get References for each EditText
+        town = view.findViewById(R.id.edit_town);
+        state = view.findViewById(R.id.edit_state);
 
+        // Create Pop Up Screen
         builder.setView(view).setTitle("Set Location").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -35,8 +45,8 @@ public class LocationDialog extends AppCompatDialogFragment {
         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String town = editTextTown.getText().toString();
-                String state = editTextState.getText().toString();
+                String town = LocationDialog.this.town.getText().toString();
+                String state = LocationDialog.this.state.getText().toString();
                 listener.applyTexts(town, state);
             }
         });
