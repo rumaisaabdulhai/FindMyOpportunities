@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afg.helpout.mapObjects.PlaceData;
+import com.afg.helpout.mapObjects.Tasks.MapQuestAPITask;
+import com.afg.helpout.mapObjects.Tasks.MapQuestHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,10 +28,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener, Comparator<Opportunity>, SearchView.OnQueryTextListener {
+public class OpportunitiesListActivity extends AppCompatActivity implements RecyclerAdapter.OnOpportunityListener,
+        Comparator<Opportunity>,
+        SearchView.OnQueryTextListener,
+        LocationDialog.LocationDialogListener {
 
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
+    String userAddress = "";
 
     // ArrayList of opportunities
     ArrayList<Opportunity> opportunities;
@@ -37,9 +44,11 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     DatabaseReference opportunities_ref;
     RecyclerAdapter recyclerAdapter;
 
+    PlaceData place; //User Location
+
     Toolbar toolbar;
 
-    private static final String TAG = "OppListActivity";
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,14 +111,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
     }
 
-    //    Sort Opportunities Alphabetically
-    public void sortViewByName(View view) {
-       Collections.sort(opportunities, new OpportunitiesListActivity());
-        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
-        recyclerview.setAdapter(recyclerAdapter);
-    }
-
     // Read Data from Firebase
+    // Load the first 10 opportunities and run a lightweight async to keep uploading
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -118,14 +121,16 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
                     String ID  = ds.getKey();
                     String title = ds.child("Title").getValue(String.class);
-//                    GenericTypeIndicator<ArrayList<String>> x = new GenericTypeIndicator<ArrayList<String>>() {};
-//                    ArrayList<String> address = ds.child("Address").getValue(x);
-//                    ArrayList<String> contact = ds.child("Contact").getValue(x);
+                    String address = ds.child("Address").getValue(String.class);
+                    String contact = ds.child("Contact").getValue(String.class);
                     String organizer = ds.child("Organized By").getValue(String.class);
                     String location = ds.child("Where").getValue(String.class);
                     String description = ds.child("Description").getValue(String.class);
+                    String latitude = ds.child("latitude").getValue(String.class);
+                    String longitude = ds.child("longitude").getValue(String.class);
 
-                    Opportunity opportunity = new Opportunity( ID, title, organizer, location, description );
+                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer, location,
+                            description, Double.parseDouble(latitude), Double.parseDouble(longitude));
                     opportunities.add(opportunity);
                 }
 
@@ -149,14 +154,6 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         Intent intent = new Intent(this, DisplayOpportunityActivity.class);
         intent.putExtra("Opportunity", opportunities.get(position));
         startActivity(intent);
-    }
-
-    //    Compares two Opportunities by title
-    @Override
-    public int compare(Opportunity o1, Opportunity o2) {
-        try { return o1.getTitle().compareTo(o2.getTitle()); }
-        catch (NullPointerException ignored) { }
-        return 0;
     }
 
     @Override
@@ -184,11 +181,16 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         return true;
     }
 
+    @Override
+    public int compare(Opportunity o1, Opportunity o2) {
+        return 0;
+    }
+
     private interface FirebaseCallback {
         void onCallback(ArrayList<Opportunity> opportunities);
     }
 
-    //    Search
+    //Search
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -203,6 +205,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sortByLocation:
+                sortViewByLocation(findViewById(android.R.id.content).getRootView());
             case R.id.action_search:
                 return true;
             case R.id.sortByName:
@@ -211,6 +214,59 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+
+    //BELOW METHODS ARE USED FOR SORTING THE RECYCLER VIEW
+
+    //    Sort Opportunities Alphabetically
+    public void sortViewByName(View view) {
+        Collections.sort(opportunities, new TitleSorter());
+        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+        recyclerview.setAdapter(recyclerAdapter);
+    }
+
+
+    // Use the information from the dialog to sort the RecyclerView by distance.
+    @Override
+    public void applyTexts(String town, String state) {
+        Log.v("MyActivity", "Town and state: " + town + " " + state);
+        userAddress = MapQuestHelper.formatAddress(town + ","+state);
+        userAddress = userAddress.replaceAll(", ", ",");
+        userAddress = userAddress.replaceAll(" ,", ",");
+        userAddress = userAddress.replaceAll(" ", "+");
+        try {
+            MapQuestAPITask mpTask = new MapQuestAPITask(this);
+
+            place = mpTask.execute(userAddress).get();
+            for(Opportunity o: opportunities){
+                double lat1 = place.getLatitude(); double long1 = place.getLongitude();
+                double lat2 = o.getLatitude(); double long2 = o.getLongitude();
+                o.setDistance(PlaceData.distance(lat1, long1, lat2, long2));
+            }
+
+            Collections.sort(opportunities, new DistanceSorter());
+            recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+            recyclerview.setAdapter(recyclerAdapter);
+        } catch (Exception e) {
+            Log.v("MyActivity", "Setting distances error" + e.toString());
+        }
+    }
+
+
+    public void sortViewByLocation(View view) {
+        openDialog();
+        Collections.sort(opportunities, new DistanceSorter());
+        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+        recyclerview.setAdapter(recyclerAdapter);
+    }
+
+
+    public void openDialog(){
+        LocationDialog locationDialog = new LocationDialog();
+        locationDialog.show(getSupportFragmentManager(), "Location Dialog");
+
     }
 
 }

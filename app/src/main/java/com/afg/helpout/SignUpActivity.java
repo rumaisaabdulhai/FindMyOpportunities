@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         // getting input and fields from activity
         mEmailRegistration = findViewById(R.id.email);
         mPasswordRegistration = findViewById(R.id.password);
+
         mButtonSignUp = findViewById(R.id.signUp);
         mSignInLink = findViewById(R.id.signInLink);
 

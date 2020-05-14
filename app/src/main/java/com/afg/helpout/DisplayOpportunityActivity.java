@@ -71,4 +71,5 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
         });
 
     }
+
 }

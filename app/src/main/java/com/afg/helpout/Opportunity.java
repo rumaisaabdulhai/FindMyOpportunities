@@ -3,38 +3,44 @@ package com.afg.helpout;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Opportunity  implements Parcelable {
+public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 
     private String ID;
     private String title;
-    private ArrayList<String> address;
-    private ArrayList<String> contact;
+    private String address;
+    private String contact;
     private String organizer;
     private String location;
     private String description;
+    private double latitude;
+    private double longitude;
+    private double distance;
 
     public Opportunity () {
         this.ID = "ID";
         this.title = "title";
-        this.address = new ArrayList<>();
-        this.contact = new ArrayList<>();
+        this.address = new String();
+        this.contact = new String();
         this.organizer = "organizer";
         this.location = "location";
         this.description = "description";
+        this.distance = 0;
     }
 
     public Opportunity(String ID, String title, String organizer, String location, String description) {
         this.ID = ID;
         this.title = title;
-        this.address = new ArrayList<>();
-        this.contact = new ArrayList<>();
+        this.address = new String();
+        this.contact = new String();
         this.organizer = organizer;
         this.location = location;
         this.description = description;
+        this.distance = 0;
     }
 
-    public Opportunity(String ID, String title, ArrayList<String> address, ArrayList<String> contact, String organizer, String location, String description) {
+    public Opportunity(String ID, String title, String address, String contact, String organizer, String location, String description, double latitude, double longitude) {
         this.ID = ID;
         this.title = title;
         this.address = address;
@@ -42,17 +48,37 @@ public class Opportunity  implements Parcelable {
         this.organizer = organizer;
         this.location = location;
         this.description = description;
+
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.distance = 0;
+    }
+
+    public Opportunity(String ID, String title, String address, String contact, String organizer, String location, String description) {
+        this.ID = ID;
+        this.title = title;
+        this.address = address;
+        this.contact = contact;
+        this.organizer = organizer;
+        this.location = location;
+        this.description = description;
+
+        this.latitude = 0;
+        this.longitude = 0;
+        this.distance = 0;
     }
 
     protected Opportunity(Parcel in) {
         ID = in.readString();
         title = in.readString();
-        address = in.createStringArrayList();
-        contact = in.createStringArrayList();
+        address = in.readString();
+        contact = in.readString();
         organizer = in.readString();
         location = in.readString();
         description = in.readString();
+        this.distance = 0;
     }
+
 
     public static final Creator<Opportunity> CREATOR = new Creator<Opportunity>() {
         @Override
@@ -65,6 +91,30 @@ public class Opportunity  implements Parcelable {
             return new Opportunity[size];
         }
     };
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public String getID() {
         return ID;
@@ -82,19 +132,19 @@ public class Opportunity  implements Parcelable {
         this.title = title;
     }
 
-    public ArrayList<String> getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(ArrayList<String> address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public ArrayList<String> getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(ArrayList<String> contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
@@ -132,11 +182,33 @@ public class Opportunity  implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(ID);
         parcel.writeString(title);
-        parcel.writeStringList(address);
-        parcel.writeStringList(contact);
+        parcel.writeString(address);
+        parcel.writeString(contact);
         parcel.writeString(organizer);
         parcel.writeString(location);
         parcel.writeString(description);
     }
 
+
+    @Override
+    public int compareTo(Opportunity o){
+        return Double.compare(this.getDistance(), o.getDistance());
+    }
+
+}
+
+class TitleSorter implements Comparator<Opportunity>
+{
+    public int compare(Opportunity o1, Opportunity o2)
+    {
+        return o1.getTitle().compareTo(o2.getTitle());
+    }
+}
+
+class DistanceSorter implements Comparator<Opportunity>
+{
+    public int compare(Opportunity o1, Opportunity o2)
+    {
+        return Double.compare(o1.getDistance(), o2.getDistance());
+    }
 }
