@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_gradient"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="40dp"
+    tools:context=".SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/amiko"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="@string/RegisterText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="40sp">
+
+            <!--    ENTER NAME    -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:id="@+id/name"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textStyle="normal"
+                app:boxBackgroundMode="none"
+                app:helperText="Please enter your name"
+                android:background="@drawable/custom_button">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    android:fontFamily="@font/amiko"
+                    android:hint="Name"
+                    android:textColor="@color/colorAccent"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:textSize="15sp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--    ENTER USERNAME    -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:errorEnabled="true"
+                android:id="@+id/userName"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textStyle="normal"
+                app:boxBackgroundMode="none"
+                app:helperText="Please enter your username"
+                android:background="@drawable/custom_button">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    android:fontFamily="@font/amiko"
+                    android:hint="Username"
+                    android:textColor="@color/colorAccent"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:textSize="15sp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--    ENTER EMAIL    -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:errorEnabled="true"
+                android:id="@+id/email"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textStyle="normal"
+                app:boxBackgroundMode="none"
+                app:helperText="Please enter your email"
+                android:background="@drawable/custom_button">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    android:fontFamily="@font/amiko"
+                    android:hint="@string/emailText"
+                    android:textColor="@color/colorAccent"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:textSize="15sp"
+                    android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--    ENTER PASSWORD    -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:errorEnabled="true"
+                android:id="@+id/password"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:textStyle="normal"
+                app:boxBackgroundMode="none"
+                app:helperText="Please enter your password"
+                android:background="@drawable/custom_button">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="none"
+                    android:fontFamily="@font/amiko"
+                    android:hint="@string/passwordText"
+                    android:textColor="@color/colorAccent"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:textSize="15sp"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp">
+
+                <!--    SIGN UP BUTTON    -->
+                <Button
+                    android:id="@+id/signUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_button"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:shadowColor="@color/colorPrimaryDark"
+                    android:text="@string/signUpTitle"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:fontFamily="@font/amiko"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signInText"  />
+
+                    <!--    SIGN IN LINK TO OTHER ACTIVITY    -->
+                    <TextView
+                        android:id="@+id/signInLink"
+                        android:layout_marginLeft="5dp"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/amiko"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signInTitle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SignUpActivity extends AppCompatActivity {
 
     // initializing variables
-    EditText mEmailRegistration, mPasswordRegistration;
+    TextInputLayout mEmailRegistration, mPasswordRegistration;
     Button mButtonSignUp;
     TextView mSignInLink;
     FirebaseAuth mAuth;
@@ -49,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_sign_up);
 
         // getting input and fields from activity
         mEmailRegistration = findViewById(R.id.email);
@@ -86,8 +85,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Converting input from user to String
-                String email = mEmailRegistration.getText().toString();
-                String password = mPasswordRegistration.getText().toString();
+                String email = mEmailRegistration.getEditText().getText().toString();
+                String password = mPasswordRegistration.getEditText().getText().toString();
 
                 // Checking if both fields are empty
                 if (email.isEmpty() && password.isEmpty()) {

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,10 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity {
 
     // Variables
-    EditText emailID, password;
+    TextInputLayout emailID, password;
     Button btnSignIn;
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
+
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     /**
@@ -52,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
         emailID = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btnSignIn = findViewById(R.id.signIn);
-        tvSignUp = findViewById(R.id.signInLink);
+        tvSignUp = findViewById(R.id.signUpLink);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             /**
@@ -84,8 +86,13 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Convert input email and password to Strings
-                String email = emailID.getText().toString();
-                String pwd = password.getText().toString();
+                String email = emailID.getEditText().getText().toString();
+                String pwd = password.getEditText().getText().toString();
+
+                // If both attributes are empty
+                if (email.isEmpty() && pwd.isEmpty()) {
+                    Toast.makeText(SignInActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                }
 
                 // If the email is an empty string
                 if (email.isEmpty()) {
@@ -97,17 +104,15 @@ public class SignInActivity extends AppCompatActivity {
                 else if (pwd.isEmpty()) {
                     password.setError("Please enter your password.");
                     password.requestFocus();
-
-                // If both attributes are empty
-                }
-                else if (email.isEmpty() && pwd.isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
                 }
 
                 // If both attributes are filled in
                 else if (!(email.isEmpty() && pwd.isEmpty())) {
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         /**
+                         *
+                         * TODO: Complete Documentation
+                         *
                          * @param task
                          */
                         @Override
@@ -144,11 +149,12 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     * Initializing the AuthStateListener.
+     * When initializing activity, checks to see if the user is currently signed in.
      */
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 }

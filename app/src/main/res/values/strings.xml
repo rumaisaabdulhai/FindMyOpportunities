@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Help Out</string>
+    <string name="app_name">HelpOut</string>
     <string name="welcomeText">Ready to \nHelp Out?</string>
     <string name="startButton">Click here to get started</string>
     <string name="DownloadText">Download</string>

@@ -44,8 +44,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/slide_heading"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/ic_helping_hand" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/amiko"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:text="Description"/>
 
 </RelativeLayout>
