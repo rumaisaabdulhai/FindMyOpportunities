@@ -7,9 +7,9 @@ import java.util.Comparator;
 
 /**
  * The Opportunity Class
- *
- * TODO: Complete Documentation
- *
+ * Models a volunteer opportunity given an organizer, title, description, address,
+ *contact information, and longitude/latitude coordinates. The distance between a user
+ * and an opportunity is initialized to 0.
  */
 public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 
@@ -26,7 +26,7 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     private double distance;
 
     /**
-     *   TODO: Complete Documentation
+     * Constructs an opportunity without given any information.
      */
     public Opportunity () {
         this.ID = "ID";
@@ -36,15 +36,17 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.organizer = "organizer";
         this.location = "location";
         this.description = "description";
+        this.longitude = 0; this.latitude = 0;
         this.distance = 0;
     }
 
     /**
-     * @param ID
-     * @param title
-     * @param organizer
-     * @param location
-     * @param description
+     * Constructs an opportunity objet given the ID, title, organizer, location, and description.
+     * @param ID The ID of the opportunity.
+     * @param title The title of the opportunity.
+     * @param organizer The organizer of the opportunity.
+     * @param location The location of the opportunity.
+     * @param description The description of the opportunity.
      */
     public Opportunity(String ID, String title, String organizer, String location, String description) {
         this.ID = ID;
@@ -55,18 +57,19 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.location = location;
         this.description = description;
         this.distance = 0;
+        latitude = 0; longitude = 0;
     }
 
     /**
-     * @param ID
-     * @param title
-     * @param address
-     * @param contact
-     * @param organizer
-     * @param location
-     * @param description
-     * @param latitude
-     * @param longitude
+     * Constructs an opportunity objet given the ID, title, organizer, location, and description,
+     * and latitude/longitude coordinates.
+     * @param ID The ID of the opportunity.
+     * @param title The title of the opportunity.
+     * @param organizer The organizer of the opportunity.
+     * @param location The location of the opportunity.
+     * @param description The description of the opportunity.
+     * @param latitude The latitude of the opportunity.
+     * @param longitude The longitude of the opportunity.
      */
     public Opportunity(String ID, String title, String address, String contact, String organizer, String location, String description, double latitude, double longitude) {
         this.ID = ID;
@@ -78,29 +81,6 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.distance = 0;
-    }
-
-    /**
-     * @param ID
-     * @param title
-     * @param address
-     * @param contact
-     * @param organizer
-     * @param location
-     * @param description
-     */
-    public Opportunity(String ID, String title, String address, String contact, String organizer, String location, String description) {
-        this.ID = ID;
-        this.title = title;
-        this.address = address;
-        this.contact = contact;
-        this.organizer = organizer;
-        this.location = location;
-        this.description = description;
-
-        this.latitude = 0;
-        this.longitude = 0;
         this.distance = 0;
     }
 
@@ -132,7 +112,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     };
 
     /**
-     * @return
+     * Gets the latitude of the opportunity.
+     * @return The latitude.
      */
     public double getLatitude() {
         return latitude;
@@ -146,7 +127,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the latitude of the opportunity.
+     * @return The longitude.
      */
     public double getLongitude() {
         return longitude;
@@ -160,7 +142,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the latitude of the opportunity.
+     * @return The distance.
      */
     public double getDistance() {
         return distance;
@@ -174,7 +157,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the ID of the opportunity.
+     * @return The ID.
      */
     public String getID() {
         return ID;
@@ -188,7 +172,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the title of the opportunity.
+     * @return The title.
      */
     public String getTitle() {
         return title;
@@ -202,7 +187,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the address of the opportunity.
+     * @return The address.
      */
     public String getAddress() {
         return address;
@@ -216,7 +202,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the contact of the opportunity.
+     * @return The contact.
      */
     public String getContact() {
         return contact;
@@ -230,7 +217,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the organizer of the opportunity.
+     * @return The organizer.
      */
     public String getOrganizer() {
         return organizer;
@@ -244,7 +232,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the location of the opportunity.
+     * @return The location.
      */
     public String getLocation() {
         return location;
@@ -258,7 +247,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @return
+     * Gets the description of the opportunity.
+     * @return The description.
      */
     public String getDescription() {
         return description;
@@ -272,6 +262,7 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
+     * TODO: What does this method do?
      * @return
      */
     @Override
@@ -299,10 +290,14 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 
 
     /**
-     * TODO Complete Documentation
-     *
+     *Compares two opportunities based on the distance between two
+     * opportunities.
      * @param o
-     * @return
+     * @return An integer based on the ranking of the opportunity object. If the distance is less than
+     * the given opportunity's distance, this method will return a negative number. If the distances are
+     * the same, the method will return 0. If the distance is greater than the given opportunity's distance,
+     * this method will return a positive number. Keep in mind that upon creating the opportunity object,
+     * every opportunity has a distance of 0 until the distance is set.
      */
     @Override
     public int compareTo(Opportunity o){
@@ -312,17 +307,19 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 }
 
 /**
- * TODO Complete Documentation
- *
+ * This class implements a custom Comparator
+ *to compare lists of opportunities based on the title of the opportunity.
  */
 class TitleSorter implements Comparator<Opportunity>
 {
     /**
-     * TODO Complete Documentation
-     *
-     * @param o1
-     * @param o2
-     * @return
+     *This method compares two opportunities based on their title.
+     * @param o1 the first opportunity
+     * @param o2 the second opportunity
+     * @return An integer based on the ranking of the opportunity object's title lexicographically.
+     * If the title is less than the given opportunity's title, this method will return a negative number. If the titles are
+     * the same, the method will return 0. If the title is greater than the given opportunity's title,
+     * this method will return a positive number.
      */
     public int compare(Opportunity o1, Opportunity o2)
     {
@@ -331,17 +328,20 @@ class TitleSorter implements Comparator<Opportunity>
 }
 
 /**
- * TODO Complete Documentation
+ * This class implements a custom Comparator
+ *to compare lists of opportunities based on distances.
  */
 class DistanceSorter implements Comparator<Opportunity>
 {
     /**
-     *
-     * TODO Complete Documentation
-     *
-     * @param o1
-     * @param o2
-     * @return
+     *This method compares two opportunities based on their distance.
+     * @param o1 the first opportunity
+     * @param o2 the second opportunity
+     * @return An integer based on the ranking of the opportunity object. If the distance is less than
+     * the given opportunity's distance, this method will return a negative number. If the distances are
+     * the same, the method will return 0. If the distance is greater than the given opportunity's distance,
+     * this method will return a positive number. Keep in mind that upon creating the opportunity object,
+     * every opportunity has a distance of 0 until the distance is set.
      */
     public int compare(Opportunity o1, Opportunity o2)
     {
