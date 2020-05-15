@@ -20,6 +20,9 @@ import android.widget.TextView;
  */
 public class WalkThroughActivity extends AppCompatActivity {
 
+    // TAG for logging
+    private static final String TAG = "WalkThroughActivity";
+
     // Variables
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;

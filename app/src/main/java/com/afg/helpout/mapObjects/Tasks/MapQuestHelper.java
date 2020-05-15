@@ -33,9 +33,8 @@ public class MapQuestHelper {
                     JSONObject res = (JSONObject) topLocationsObj.get(0);
                     JSONArray locations = res.getJSONArray("locations");
 
-
                     // Get the first JSON object.
-                    // TODO:: add an algorithm to get the most likely location from the MapQuest list.
+                    // TODO: add an algorithm to get the most likely location from the MapQuest list.
                     JSONObject location = locations.getJSONObject(0);
                     String street = res.getJSONObject("providedLocation").getString("location");
 

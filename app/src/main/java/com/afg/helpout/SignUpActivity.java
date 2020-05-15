@@ -25,7 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class SignUpActivity extends AppCompatActivity {
 
-    // initializing variables
+    // TAG for logging
+    private static final String TAG = "SignUpActivity";
+
+    // Initializing variables
     TextInputLayout mEmailRegistration, mPasswordRegistration;
     Button mButtonSignUp;
     TextView mSignInLink;

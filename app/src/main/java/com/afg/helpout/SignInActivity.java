@@ -26,7 +26,10 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class SignInActivity extends AppCompatActivity {
 
-    // Variables
+    // TAG for logging
+    private static final String TAG = "SignInActivity";
+
+    // Initializing variables
     TextInputLayout emailID, password;
     Button btnSignIn;
     TextView tvSignUp;
@@ -111,9 +114,9 @@ public class SignInActivity extends AppCompatActivity {
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         /**
                          *
-                         * TODO: Complete Documentation
+                         * Called when Attempting to Sign in With Firebase.
                          *
-                         * @param task
+                         * @param task The Task<AuthResult>
                          */
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {

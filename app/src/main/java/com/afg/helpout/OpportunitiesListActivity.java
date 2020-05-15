@@ -168,16 +168,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     }
 
     /**
+     * Reads Data from Firebase and passes the created
+     * Opportunity ArrayList to the onCallback Method.
      *
-     * @param firebaseCallback the In
+     * @param firebaseCallback The FirebaseCallback
      */
     private void readData(final FirebaseCallback firebaseCallback) {
         ValueEventListener valueEventListener = new ValueEventListener() {
             /**
-             * Reads Data from Firebase.
+             * Reads Data from Firebase and adds to an ArrayList of
+             * Opportunities
              *
-             * Loa
-             * @param dataSnapshot
+             * @param dataSnapshot The DataSnapshot
              */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -203,7 +205,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             }
 
             /**
-             * @param databaseError
+             * If there is an error when reading data.
+             *
+             * @param databaseError The DataBaseError
              */
             @Override
             public void onCancelled(DatabaseError databaseError) {

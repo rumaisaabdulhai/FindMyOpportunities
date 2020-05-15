@@ -20,7 +20,10 @@ import androidx.viewpager.widget.PagerAdapter;
  */
 public class SliderAdapter extends PagerAdapter {
 
-    // Variables
+    // TAG for logging
+    private static final String TAG = "SliderAdapter";
+
+    // Initializing variables
     Context context;
     LayoutInflater layoutInflater;
 
@@ -81,11 +84,11 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     /**
-     * TODO: Complete Documentation
+     * Checks if the view and the object are the same.
      *
-     * @param view
-     * @param o
-     * @return
+     * @param view The View object
+     * @param o The Object
+     * @return true or false
      */
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
