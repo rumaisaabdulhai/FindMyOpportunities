@@ -8,72 +8,119 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afg.helpout.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * TODO: Complete Documentation
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     // initializing fields
-    EditText mEmailRegistration, mPasswordRegistration, mUsernameRegistration;
+    EditText mEmailRegistration, mPasswordRegistration;
     Button mButtonSignUp;
     TextView mSignInLink;
-    FirebaseDatabase database;
-    DatabaseReference ref;
 
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener firebaseAuthListener;
 
+    /**
+     * TODO: Complete Documentation
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //Firebase
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Users");
-        final DatabaseReference users = ref.child("User Information");
-
         // getting input and fields from activity
         mEmailRegistration = findViewById(R.id.email);
         mPasswordRegistration = findViewById(R.id.password);
-        mUsernameRegistration = findViewById(R.id.usernameText);
 
         mButtonSignUp = findViewById(R.id.signUp);
         mSignInLink = findViewById(R.id.signInLink);
 
-        mButtonSignUp.setOnClickListener(new View.OnClickListener() {
+        // Firebase Listener
+        mAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param firebaseAuth
+             */
             @Override
-            public void onClick(View v) {
-                //Current user information. TODO: Add favorites as parameter to user class
-                final User user = new User(mUsernameRegistration.getText().toString(),
-                        mEmailRegistration.getText().toString(),
-                        mPasswordRegistration.getText().toString());
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            }
+        };
 
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        users.child(mUsernameRegistration.getText().toString()).setValue(user);
-                        Toast.makeText(SignUpActivity.this,
-                                "Registration is succesful", Toast.LENGTH_LONG).show();
-                    }
+        // Listener for Sign Up Button
+        mButtonSignUp.setOnClickListener(new View.OnClickListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(SignUpActivity.this,
-                                "Unable to register. Please try again later.", Toast.LENGTH_LONG).show();
-                    }
-                });
+                // Converting input from user to String
+                String email = mEmailRegistration.getText().toString();
+                String password = mPasswordRegistration.getText().toString();
+
+                // Checking if both fields are empty
+                if (email.isEmpty() && password.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                }
+                // Checking if email is empty
+                else if (email.isEmpty()) {
+                    mEmailRegistration.setError("Please enter your email.");
+                    mEmailRegistration.requestFocus();
+                }
+                // Checking if password is empty
+                else if (password.isEmpty()) {
+                    mPasswordRegistration.setError("Please enter your password.");
+                    mPasswordRegistration.requestFocus();
+                }
+                else {
+                    // If both fields are NOT empty: Register User
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            // Report Error
+                            if (!task.isSuccessful())
+                                Toast.makeText(SignUpActivity.this, "Sign Up Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
+                            // Go to ConfirmLoginActivity
+                            else
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                        }
+                    });
+                }
+                
             }
         });
 
         // Listener for Sign in Link at Bottom
         mSignInLink.setOnClickListener(new View.OnClickListener() {
+            /**
+             * TODO: Complete Documentation
+             *
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
