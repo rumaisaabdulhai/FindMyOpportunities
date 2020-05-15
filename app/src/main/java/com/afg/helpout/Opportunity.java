@@ -7,9 +7,9 @@ import java.util.Comparator;
 
 /**
  * The Opportunity Class
+ *
  * Models a volunteer opportunity given an organizer, title, description, address,
- *contact information, and longitude/latitude coordinates. The distance between a user
- * and an opportunity is initialized to 0.
+ * contact information, and longitude/latitude coordinates.
  */
 public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 
@@ -36,7 +36,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.organizer = "organizer";
         this.location = "location";
         this.description = "description";
-        this.longitude = 0; this.latitude = 0;
+        this.longitude = 0;
+        this.latitude = 0;
         this.distance = 0;
     }
 
@@ -56,12 +57,13 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.organizer = organizer;
         this.location = location;
         this.description = description;
+        this.latitude = 0;
+        this.longitude = 0;
         this.distance = 0;
-        latitude = 0; longitude = 0;
     }
 
     /**
-     * Constructs an opportunity objet given the ID, title, organizer, location, and description,
+     * Constructs an opportunity object given the ID, title, organizer, location, and description,
      * and latitude/longitude coordinates.
      * @param ID The ID of the opportunity.
      * @param title The title of the opportunity.
@@ -85,7 +87,10 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param in
+     *
+     * Reads each variable with a Parcel object.
+     *
+     * @param in The Parcel Object.
      */
     protected Opportunity(Parcel in) {
         ID = in.readString();
@@ -98,7 +103,7 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         this.distance = 0;
     }
 
-
+    // Implements Parcelable
     public static final Creator<Opportunity> CREATOR = new Creator<Opportunity>() {
         @Override
         public Opportunity createFromParcel(Parcel in) {
@@ -120,7 +125,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param latitude
+     * Sets the latitude of the opportunity.
+     * @param latitude The latitude.
      */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
@@ -135,7 +141,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param longitude
+     * Sets the longitude of the opportunity
+     * @param longitude The longitude
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
@@ -150,6 +157,7 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
+     * Sets the distance of the opportunity.
      * @param distance
      */
     public void setDistance(double distance) {
@@ -165,7 +173,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param ID
+     * Sets the ID of the opportunity.
+     * @param ID The ID.
      */
     public void setID(String ID) {
         this.ID = ID;
@@ -180,7 +189,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param title
+     * Sets the title of the opportunity.
+     * @param title The title.
      */
     public void setTitle(String title) {
         this.title = title;
@@ -195,7 +205,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param address
+     * Sets the address of the opportunity.
+     * @param address The address.
      */
     public void setAddress(String address) {
         this.address = address;
@@ -210,7 +221,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param contact
+     * Sets the contact of the opportunity
+     * @param contact The contact.
      */
     public void setContact(String contact) {
         this.contact = contact;
@@ -225,7 +237,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param organizer
+     * Sets the organizer of the opportunity.
+     * @param organizer The organizer.
      */
     public void setOrganizer(String organizer) {
         this.organizer = organizer;
@@ -239,8 +252,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         return location;
     }
 
-    /**
-     * @param location
+    /** Sets the location of the opportunity.
+     * @param location The location.
      */
     public void setLocation(String location) {
         this.location = location;
@@ -255,15 +268,18 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * @param description
+     * Sets the description of the opportunity.
+     * @param description The description
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * TODO: What does this method do?
-     * @return
+     * Describe the kinds of special objects contained in this
+     * Parcelable instance's marshaled representation.
+     *
+     * @return 0
      */
     @Override
     public int describeContents() {
@@ -271,12 +287,11 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     }
 
     /**
-     * TODO Complete Documentation
+     * Assists in sending the Opportunity object to DisplayOpportunityActivity.
      *
-     * @param parcel
-     * @param i
+     * @param parcel The parcel object
+     * @param i The Flags
      */
-    //    Assists in sending object to DisplayOpportunityActivity
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(ID);
@@ -288,9 +303,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         parcel.writeString(description);
     }
 
-
     /**
-     *Compares two opportunities based on the distance between two
+     * Compares two opportunities based on the distance between two
      * opportunities.
      * @param o
      * @return An integer based on the ranking of the opportunity object. If the distance is less than
@@ -307,8 +321,11 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
 }
 
 /**
- * This class implements a custom Comparator
- *to compare lists of opportunities based on the title of the opportunity.
+ * The TitleSorter Class
+ *
+ * Implements a custom Comparator
+ * to compare lists of opportunities based on
+ * the title of the opportunity.
  */
 class TitleSorter implements Comparator<Opportunity>
 {
@@ -328,13 +345,15 @@ class TitleSorter implements Comparator<Opportunity>
 }
 
 /**
- * This class implements a custom Comparator
- *to compare lists of opportunities based on distances.
+ * The DistanceSorter Class
+ *
+ * Implements a custom Comparator
+ * to compare lists of opportunities based on distances.
  */
 class DistanceSorter implements Comparator<Opportunity>
 {
     /**
-     *This method compares two opportunities based on their distance.
+     * Compares two opportunities based on their distance.
      * @param o1 the first opportunity
      * @param o2 the second opportunity
      * @return An integer based on the ranking of the opportunity object. If the distance is less than

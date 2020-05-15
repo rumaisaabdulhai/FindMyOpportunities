@@ -4,12 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * The RecyclerAdapter Class
  *
- * TODO: Complete Documentation
+ * Custom Adapter that holds the RecyclerView.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
     // TAG for logging
     private static final String TAG = "RecyclerAdapter";
@@ -32,7 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     Context context;
 
     /**
-     * TODO: Complete Documentation
+     * Constructor for the RecyclerAdapter.
      *
      * @param opportunities
      * @param context
@@ -45,22 +42,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     /**
-     * TODO: Complete Documentation
+     * The RecyclerViewHolder Class
+     *
+     * Gets the references for the title & description and
+     * Initializes the onOpportunityListener.
+     *
      */
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
+        // Variables
         TextView Title;
         TextView Description;
         OnOpportunityListener onOpportunityListener;
 
         /**
-         * TODO: Complete Documentation
+         * Constructor for the RecyclerViewHolder
          *
-         * @param itemView
-         * @param onOpportunityListener
+         * @param itemView The View object
+         * @param onOpportunityListener The OnOpportunityListener
          */
-        public MyViewHolder(@NonNull View itemView, OnOpportunityListener onOpportunityListener)
+        public RecyclerViewHolder(@NonNull View itemView, OnOpportunityListener onOpportunityListener)
         {
             super(itemView);
             this.Title = itemView.findViewById(R.id.Title);
@@ -72,9 +74,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
 
         /**
-         * TODO: Complete Documentation
+         * Handles a click on an opportunity in the RecyclerView.
          *
-         * @param view
+         * @param view The View object
          */
         @Override
         public void onClick(View view) {
@@ -84,63 +86,61 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     /**
      *
-     * TODO: Complete Documentation
+     * Constructor for the RecyclerViewHolder.
      *
-     * @param parent
-     * @param viewType
+     * @param parent The ViewGroup
+     * @param viewType The view type
      * @return
      */
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater li = LayoutInflater.from(parent.getContext());
         View view = li.inflate(R.layout.opportunity, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view, onOpportunityListener);
+        RecyclerViewHolder myViewHolder = new RecyclerViewHolder(view, onOpportunityListener);
         return myViewHolder;
     }
 
     /**
-     * TODO: Complete Documentation
+     * Sets each volunteer card in the RecyclerView
+     * with the title and description information.
      *
-     * @param holder
-     * @param i
+     * @param holder The RecyclerViewHolder Object.
+     * @param i The Index of the opportunity.
      */
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int i) {
 
         TextView title = holder.Title;
         TextView description = holder.Description;
 
-        // gets title and description from the opportunities ArrayList to display
+        // Gets title and description from the opportunities ArrayList to display
         title.setText( opportunities.get(i).getTitle() );
         description.setText( opportunities.get(i).getDescription() );
     }
 
     /**
-     * TODO: Complete Documentation
+     * Gets the Number of Items in the RecyclerView.
      *
-     * @return
+     * @return The size of the Opportunities ArrayList.
      */
     @Override
     public int getItemCount() {
         return opportunities.size();
     }
 
+    /**
+     * The OnOpportunityListener Interface
+     */
     public interface OnOpportunityListener {
-
-        /**
-         * TODO: Complete Documentation
-         *
-         * @param position
-         */
         void onOpportunityClick(int position);
     }
 
     /**
-     * TODO: Complete Documentation
+     * Updates the List when User Searches in Search Bar.
      *
-     * @param newList
+     * @param newList The Opportunities that match the Search Query of the User.
      */
     public void updateList(ArrayList<Opportunity> newList)
     {

@@ -17,6 +17,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * The SignInActivity Class
+ *
+ * Allows the User to Sign in with an Email and Password.
+ *
+ */
 public class SignInActivity extends AppCompatActivity {
 
     // Variables
@@ -27,7 +33,15 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     /**
-     * @param savedInstanceState
+     * This is the onCreate Method for SignInActivity.
+     *
+     * When called, it creates a FirebaseAuth object. It gets the references of the
+     * email, password, and sign in button and sign up link to be used later.
+     *
+     * It implements an AuthStateListener that checks whether the user has been logged in.
+     * It also has listeners for the sign in button and sign up link.
+     *
+     * @param savedInstanceState State of the UI Controller.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +56,8 @@ public class SignInActivity extends AppCompatActivity {
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             /**
-             * @param firebaseAuth
+             * Checks if the User is Logged in.
+             * @param firebaseAuth The FirebaseAuth object
              */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -62,24 +77,34 @@ public class SignInActivity extends AppCompatActivity {
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             /**
-             * @param view
+             * Called when the Sign In Button is clicked.
+             * @param view The View object
              */
             @Override
             public void onClick(View view) {
 
+                // Convert input email and password to Strings
                 String email = emailID.getText().toString();
                 String pwd = password.getText().toString();
+
+                // If the email is an empty string
                 if (email.isEmpty()) {
                     emailID.setError("Please enter your email.");
                     emailID.requestFocus();
                 }
+
+                // If the password is an empty string
                 else if (pwd.isEmpty()) {
                     password.setError("Please enter your password.");
                     password.requestFocus();
+
+                // If both attributes are empty
                 }
                 else if (email.isEmpty() && pwd.isEmpty()) {
                     Toast.makeText(SignInActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
                 }
+
+                // If both attributes are filled in
                 else if (!(email.isEmpty() && pwd.isEmpty())) {
                     mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         /**
@@ -97,6 +122,8 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                // If none of the statements are satisfied above, there is likely an error.
                 else {
                     Toast.makeText(SignInActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
                 }
@@ -105,7 +132,8 @@ public class SignInActivity extends AppCompatActivity {
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             /**
-             * @param view
+             * Opens the SignUpActivity when the Sign Up Link is clicked.
+             * @param view The View object
              */
             @Override
             public void onClick(View view) {
@@ -116,7 +144,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Initializing the AuthStateListener.
      */
     @Override
     protected void onStart() {

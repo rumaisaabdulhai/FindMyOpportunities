@@ -12,15 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 /**
- * TODO: Complete Documentation
+ * SliderAdapter Class
+ *
+ * Custom Adapter for the WalkThroughActivity.
+ * Allows the User to slide between the pages about
+ * the app after a fresh install.
  */
 public class SliderAdapter extends PagerAdapter {
 
+    // Variables
     Context context;
     LayoutInflater layoutInflater;
 
     /**
-     * TODO: Complete Documentation
+     * Constructor for the SliderAdapter
      * @param context
      */
     public SliderAdapter(Context context) {
@@ -29,7 +34,7 @@ public class SliderAdapter extends PagerAdapter {
 
     }
 
-    // Arrays
+    // Array that holds the IDs for the Icons Used
     public int[] slide_images = {
             R.drawable.ic_helping_hand,
             R.drawable.ic_finder,
@@ -38,6 +43,7 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.ic_empty
     };
 
+    // Array that holds the IDs for the Large Headings Used
     public String[] large_headings = {
             "",
             "",
@@ -46,6 +52,7 @@ public class SliderAdapter extends PagerAdapter {
             "Ready to \nHelp Out?",
     };
 
+    // Array that holds the IDs for the Slide Headings Used
     public String[] slide_headings = {
             "Welcome to HelpOut",
             "Find Your Cause",
@@ -54,6 +61,7 @@ public class SliderAdapter extends PagerAdapter {
             "",
     };
 
+    // Array that holds the IDs for the Slide Descriptions Used
     public String[] slide_descriptions = {
             "Here you can find community service opportunities.",
             "You can search opportunities by location that match your interests and needs.",
@@ -63,9 +71,9 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     /**
-     * TODO: Complete Documentation
+     * Gets the number of pages in the SliderAdapter.
      *
-     * @return
+     * @return the length of slide_headings.
      */
     @Override
     public int getCount() {
@@ -85,42 +93,43 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     /**
-     * TODO: Complete Documentation
+     * Creates a Slide.
      *
-     * @param container
-     * @param position
+     * @param container The ViewGroup object.
+     * @param index The index of the slide.
      * @return
      */
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int index) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.slide_layout, container, false);
 
+        // Get references for each View
         ImageView slideImageView = (ImageView) view.findViewById(R.id.slide_image);
         TextView slideHeading = (TextView) view.findViewById(R.id.slide_heading);
         TextView slideDescription = (TextView) view.findViewById(R.id.slide_desc);
-
         TextView largeHeading = (TextView) view.findViewById(R.id.large_heading);
 
-        slideImageView.setImageResource(slide_images[position]);
-        slideHeading.setText(slide_headings[position]);
-        slideDescription.setText(slide_descriptions[position]);
+        slideImageView.setImageResource(slide_images[index]);
+        slideHeading.setText(slide_headings[index]);
+        slideDescription.setText(slide_descriptions[index]);
+        largeHeading.setText(large_headings[index]);
 
-        largeHeading.setText(large_headings[position]);
-
+        // Adds the View
         container.addView(view);
 
         return view;
     }
 
     /**
-     * TODO: Complete Documentation
+     * Removes the Slide from view to make
+     * way for the next Slide.
      *
-     * @param container
-     * @param position
-     * @param object
+     * @param container The ViewGroup object.
+     * @param position The position of the slide.
+     * @param object The .
      */
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {

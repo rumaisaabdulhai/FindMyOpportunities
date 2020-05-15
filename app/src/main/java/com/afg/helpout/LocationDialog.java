@@ -12,26 +12,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
- * The LocationDialog Class
+ * The LocationDialog Class.
  *
- * TODO: Complete Documentation
+ * Fragment Pop-Up Screen that allows user to sort by location.
  */
 public class LocationDialog extends AppCompatDialogFragment {
 
     // Initializing Variables
     private EditText town;
     private EditText state;
-    private LocationDialogListener listener;
+    private LocationDialogListener mLocationDialogListener;
 
     /**
-     *
-     * TODO: Complete Documentation
+     * Creates the Custom Dialog object.
      *
      * @param savedInstanceState
      * @return
      */
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // Initialize Pop Up Screen
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -45,27 +44,26 @@ public class LocationDialog extends AppCompatDialogFragment {
         // Create Pop Up Screen
         builder.setView(view).setTitle("Set Location").setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             /**
+             * Handles Pressing the Cancel Button.
              *
-             * TODO: Complete Documentation
-             *
-             * @param dialog
+             * @param dialog The DialogInterface
              * @param which
              */
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
+            public void onClick(DialogInterface dialog, int which) { }
         })
         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
             /**
-             * @param dialog
+             * Handles Pressing the Ok Button.
+             *
+             * @param dialog The DialogInterface
              * @param which
              */
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String town = LocationDialog.this.town.getText().toString();
                 String state = LocationDialog.this.state.getText().toString();
-                listener.applyTexts(town, state);
+                mLocationDialogListener.applyTexts(town, state);
             }
         });
 
@@ -74,16 +72,16 @@ public class LocationDialog extends AppCompatDialogFragment {
 
     /**
      *
-     * TODO: Complete Documentation
+     * Called when a fragment is first attached to its context.
      *
-     * @param context
+     * @param context The Context
      */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         try {
-            listener = (LocationDialogListener) context;
+            mLocationDialogListener = (LocationDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement ExampleDialogListener.");
         }
@@ -93,13 +91,6 @@ public class LocationDialog extends AppCompatDialogFragment {
      * LocationDialogListener Interface
      */
     public interface LocationDialogListener{
-        /**
-         *
-         * TODO: Complete Documentation
-         *
-         * @param town
-         * @param state
-         */
         void applyTexts(String town, String state);
     }
 

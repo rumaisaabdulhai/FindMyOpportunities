@@ -19,22 +19,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * TODO: Complete Documentation
+ * The SignUpActivity Class
+ *
+ * Allows the User to Sign Up with an email and password.
+ *
  */
 public class SignUpActivity extends AppCompatActivity {
 
-    // initializing fields
+    // initializing variables
     EditText mEmailRegistration, mPasswordRegistration;
     Button mButtonSignUp;
     TextView mSignInLink;
-
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     /**
-     * TODO: Complete Documentation
+     * This is the onCreate Method for SignUpActivity.
      *
-     * @param savedInstanceState
+     * When called, it creates a FirebaseAuth object. It gets the references of the
+     * email, password, and sign up button and sign in link to be used later.
+     *
+     * It implements an AuthStateListener that checks whether the user has signed up and takes
+     * the user to the Home Page (MainActivity).
+     *
+     * It also has listeners for the sign up button and sign in link.
+     *
+     * @param savedInstanceState State of the UI Controller.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +62,8 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             /**
-             * TODO: Complete Documentation
-             *
-             * @param firebaseAuth
+             * Checks if the User is Signed Up.
+             * @param firebaseAuth The FirebaseAuth object
              */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -68,12 +77,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         };
 
-        // Listener for Sign Up Button
         mButtonSignUp.setOnClickListener(new View.OnClickListener() {
             /**
-             * TODO: Complete Documentation
-             *
-             * @param view
+             * Called when the Sign Up Button is clicked.
+             * @param view The View object
              */
             @Override
             public void onClick(View view) {
@@ -114,12 +121,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        // Listener for Sign in Link at Bottom
         mSignInLink.setOnClickListener(new View.OnClickListener() {
             /**
-             * TODO: Complete Documentation
-             *
-             * @param view
+             * Opens the SignInActivity when the Sign In Link is clicked.
+             * @param view The View object
              */
             @Override
             public void onClick(View view) {
