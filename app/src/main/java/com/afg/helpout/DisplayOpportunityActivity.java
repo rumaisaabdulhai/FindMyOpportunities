@@ -2,6 +2,7 @@ package com.afg.helpout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -114,6 +115,20 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Inflates the Toolbar Menu for
+     * the DisplayOpportunityActivity
+     *
+     * @param menu The Menu Object
+     * @return true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.opportunity_toolbar_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_favorite);
+        return true;
     }
 
 }

@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Sets the Icons to be Displayed in each TabLayout Title Area
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_dashboard);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorites);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite_selected);
 
         // Sets the Custom Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
