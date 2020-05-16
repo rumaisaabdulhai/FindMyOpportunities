@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- *
+ *This class checks runs an async task to check the user's location.
  */
 public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
 
@@ -24,10 +24,11 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     private static final String debugTag = "MyActivity";
 
     private String[] params;
-    public static PlaceData place;
+    public static PlaceData place; //Store the location of the user in a PlaceData object.
 
     /**
-     * @param activity
+     * The constructor of the async task.
+     * @param activity the activity.
      */
     public MapQuestAPITask(OpportunitiesListActivity activity){
         super();
@@ -37,8 +38,10 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     }
 
     /**
-     * @param params
-     * @return
+     * The doInBackground method for the async task.
+     * @param params This is an array of string. However, in this task only the first parameter
+     * is considered for the user's address.
+     * @return the result, which is the placeData object of the user's location.
      */
     @Override
     protected PlaceData doInBackground(String...params) {
@@ -47,7 +50,8 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     }
 
     /**
-     * @param result
+     * Finishes the async task.
+     * @param result the PlaceData object returned by the doInBackground method.
      */
     @Override
     //Retrieve User Location
@@ -60,8 +64,9 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     //IMPLEMENTS BACKGROUND TASK METHODS
 
     /**
-     * @param userAddress
-     * @return
+     * Queries map quest for the user's location given a town and state.
+     * @param userAddress the user's address, properly formatted for an HTTP query.
+     * @return The PlaceData object that stores the user's location.
      */
     private String queryMapQuest(String userAddress){
         try{
@@ -105,8 +110,9 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
 
 
     /**
-     * @param result
-     * @return
+     * Reads the resulting JSON from the HTTP request and gets the user's longitude and latitude.
+     * @param result The JSON string result from the HTTP query.
+     * @return The placeData object which stores the user's longitude and latitude.
      */
     private PlaceData readJSON(String result){
 
