@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- *
+ *test commit
  */
 public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
 
