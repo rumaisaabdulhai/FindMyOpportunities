@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- *
+ *This class is responsible for handling the MapQuest query formatting and results.
  */
 public class MapQuestHelper {
 
@@ -17,8 +17,9 @@ public class MapQuestHelper {
 
 
     /**
-     * @param jsonStr
-     * @return
+     * Extracts the placeData object from the JSON string result.
+     * @param jsonStr the JSON result from the MapQuest query.
+     * @return the placeData object that stores the longitude and latitude specified in the JSON.
      */
         public static PlaceData extractJSONplaceData(String jsonStr){
             PlaceData place = new PlaceData();
@@ -56,8 +57,9 @@ public class MapQuestHelper {
         }
 
     /**
-     * @param JSONAddressInput
-     * @return
+     * Formats a town and state input correctly for the MapQuest query.
+     * @param JSONAddressInput The town and state seperated by a comma.
+     * @return the formatted address input for the MapQuest query. 
      */
     public static String formatAddress(String JSONAddressInput){ // Format an input address string correctly for the MapQuest query
         if(JSONAddressInput.charAt(0)=='['){
