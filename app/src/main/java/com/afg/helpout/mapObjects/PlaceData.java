@@ -70,25 +70,41 @@ public class PlaceData {
     }
 
     /**
-     * Returns the postal address of the location. 
-     * @return
+     * Returns the postal address of the location.
+     * @return The postal address of the location.
      */
     public String getStreet() {
         return street;
     }
 
+    /**
+     * Sets the postal address of the location.
+     * @param street The postal address of the location.
+     */
     public void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     * Returns the static map url of the location.
+     * @return The static map url of the location.
+     */
     public String getMapUrl() {
         return mapUrl;
     }
 
+    /**
+     * Sets the static map url of the location.
+     * @param mapUrl The static map url of the location.
+     */
     public void setMapUrl(String mapUrl) {
         this.mapUrl = mapUrl;
     }
 
+    /**
+     * Returns a string version of the PlaceData object.
+     * @return A string version of the PlaceData object.
+     */
     @Override
     public String toString() {
         return "PlaceData{" +
@@ -99,15 +115,22 @@ public class PlaceData {
                 '}';
     }
 
-    public double distance(double latitude, double longitude){
+    /**
+     * Calculates the distance between a PlaceData object and a given latitude and longitude
+     * using the haversine formula.
+     * @param secondPlace The second place that is being compared to this object to calculate the distance.
+     * @return The distance between the two places.
+     */
+    public double distance(PlaceData secondPlace){
         /**
          * https://www.geeksforgeeks.org/program-distance-two-points-earth/.
          */
 
+
         double lat1 = toRadians(this.latitude);
         double long1 = toRadians(this.longitude);
-        double lat2 = toRadians(latitude);
-        double long2 = toRadians(longitude);
+        double lat2 = toRadians(secondPlace.getLatitude());
+        double long2 = toRadians(secondPlace.getLongitude());
 
         // Haversine Formula
         double dlong = long2 - long1;
@@ -126,11 +149,27 @@ public class PlaceData {
 
     }
 
+    /**
+     * Calculates the distance between two longitude and latitude points
+     * using the haversine formula.
+     * @param lat1 The latitude of the first location.
+     * @param long1 The longitude of the first location.
+     * @param lat2 The latitude of the second location.
+     * @param long2 The longitude of the second location.
+     * @return the distance between the two coordinates, as calculated with the Haversine
+     * formula.
+     */
     public static double distance(double lat1, double long1, double lat2, double long2){
-        return new PlaceData("", lat1, long1, ""). distance(lat2, long2);
+        return new PlaceData("", lat1, long1, "")
+                .distance(new PlaceData("", lat2, long2, ""));
     }
 
-    public static double toRadians(double latlong){
+    /**
+     * Converts a latitude or longitude coordinate to radians.
+     * @param latlong The latitude or longitude coordinate.
+     * @return The radians.
+     */
+    private static double toRadians(double latlong){
         return latlong/(180/Math.PI);
     }
 
