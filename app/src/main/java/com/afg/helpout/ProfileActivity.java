@@ -194,7 +194,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * FirebaseCallback Interface
      */
-    private interface FirebaseCallback {
+    interface FirebaseCallback {
         void onCallback(User user);
     }
 }
