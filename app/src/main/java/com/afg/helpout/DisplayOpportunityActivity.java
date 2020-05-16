@@ -2,6 +2,7 @@ package com.afg.helpout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
 
     // Index of the Activity for the BottomNavigationView
     public static final int INDEX = 1;
+
+    // Custom Toolbar
+    Toolbar toolbar;
 
     /**
      * This is the onCreate Method for DisplayOpportunityActivity.
@@ -67,6 +71,10 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             TextView location = findViewById(R.id.locationText);
             location.setText(opportunity.getLocation());
         }
+
+        // Sets the Custom Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // BOTTOM NAVIGATION MENU
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);

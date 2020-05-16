@@ -5,11 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".DisplayOpportunityActivity"
-    android:orientation="vertical"
-    android:paddingTop="15dp">
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar">
+    </include>
 
     <!--  SCROLL VIEW  -->
     <ScrollView
+        android:layout_below="@id/toolbar"
+        android:paddingTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav">
