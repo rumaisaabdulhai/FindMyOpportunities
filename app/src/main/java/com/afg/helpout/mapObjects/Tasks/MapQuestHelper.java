@@ -59,7 +59,7 @@ public class MapQuestHelper {
     /**
      * Formats a town and state input correctly for the MapQuest query.
      * @param JSONAddressInput The town and state seperated by a comma.
-     * @return the formatted address input for the MapQuest query. 
+     * @return the formatted address input for the MapQuest query.
      */
     public static String formatAddress(String JSONAddressInput){ // Format an input address string correctly for the MapQuest query
         if(JSONAddressInput.charAt(0)=='['){

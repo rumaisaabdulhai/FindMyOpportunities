@@ -7,10 +7,18 @@ public class PlaceData {
     private String street;
     private double latitude;
     private double longitude;
+    //This is a link to a static map of the location. This isn't used right now but can be used in the UI in the future.
     private String mapUrl;
 
     final private double EARTH_RADIUS = 3958.8; //In MILES.
 
+    /**
+     * Constructor for a PlaceData object.
+     * @param street_loc the postal address of the location (eg. 1600 Pennsylvania Ave, Washington DC)
+     * @param latitude the latitude of the location.
+     * @param longitude the longitude of the location.
+     * @param imageUrl_loc a link to the static map (an image) of the location.
+     */
     public PlaceData(String street_loc, double latitude, double longitude, String imageUrl_loc) {
             street = street_loc;
             this.latitude = latitude;
@@ -18,6 +26,10 @@ public class PlaceData {
             mapUrl = imageUrl_loc;
     }
 
+    /**
+     * A constructor for a PlaceData object. This constructor initializes the street and mapURL to
+     * empty strings and the latitude and longitude to 0.
+     */
     public PlaceData() {
         street = "";
         this.latitude = 0;
@@ -25,22 +37,42 @@ public class PlaceData {
         mapUrl = "";
     }
 
+    /**
+     * Returns the latitude of the location.
+     * @return The latitude of the location.
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Sets the latitude of the location.
+     * @param latitude The latitude of the location.
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Returns the longitude of the location.
+     * @return The longitude of the location.
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Sets the longitude of the location.
+     * @param longitude The longitude of the location.
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Returns the postal address of the location. 
+     * @return
+     */
     public String getStreet() {
         return street;
     }
