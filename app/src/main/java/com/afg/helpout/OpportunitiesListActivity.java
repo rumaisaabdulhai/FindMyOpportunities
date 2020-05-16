@@ -58,7 +58,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     RecyclerAdapter recyclerAdapter;
 
     // Firebase Variables
-    DatabaseReference database;
+    DatabaseReference databaseReference;
     DatabaseReference opportunities_ref;
 
     // ArrayList that holds the opportunities
@@ -95,10 +95,10 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         recyclerview.setLayoutManager(layoutManager);
 
         // Gets instance of the Firebase Database
-        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Reads from the "Opportunities" child in the database
-        opportunities_ref = database.child("Opportunities");
+        opportunities_ref = databaseReference.child("Opportunities");
 
         // Initializes the Opportunity ArrayList
         opportunities = new ArrayList<>();
@@ -145,9 +145,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
 
-                    // Open MainActivity
+                    // Open HomeActivity
                     case R.id.ic_home_nav:
-                        Intent i1 = new Intent(OpportunitiesListActivity.this, MainActivity.class);
+                        Intent i1 = new Intent(OpportunitiesListActivity.this, HomeActivity.class);
                         startActivity(i1);
                         break;
 

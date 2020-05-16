@@ -101,7 +101,7 @@ public class WalkThroughActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WalkThroughActivity.this, SignInActivity.class);
+                Intent intent = new Intent(WalkThroughActivity.this, SignUpActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -156,6 +156,7 @@ public class WalkThroughActivity extends AppCompatActivity {
             addDotsIndicator(i);
             mCurrentPage = i;
 
+            // First page
             if (i == 0) {
                 mNextButton.setEnabled(true);
                 mBackButton.setEnabled(false);
@@ -168,6 +169,7 @@ public class WalkThroughActivity extends AppCompatActivity {
                 mBackButton.setText("");
             }
 
+            // Last page
             else if (i == mDots.length - 1) {
                 mNextButton.setEnabled(false);
                 mBackButton.setEnabled(true);
@@ -180,6 +182,7 @@ public class WalkThroughActivity extends AppCompatActivity {
                 mBackButton.setText(R.string.backText);
             }
 
+            // Any other page
             else {
                 mNextButton.setEnabled(true);
                 mBackButton.setEnabled(true);

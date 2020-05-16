@@ -83,9 +83,9 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                 // Switch cases on the ID of the Item
                 switch (item.getItemId()) {
 
-                    // Open MainActivity
+                    // Open HomeActivity
                     case R.id.ic_home_nav:
-                        Intent i1 = new Intent(DisplayOpportunityActivity.this, MainActivity.class);
+                        Intent i1 = new Intent(DisplayOpportunityActivity.this, HomeActivity.class);
                         startActivity(i1);
                         break;
 

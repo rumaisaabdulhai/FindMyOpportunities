@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * The SignInActivity Class
  *
+ * Initiates the WalkThroughActivity if the User has opened the
+ * app for the very first time after a fresh install.
+ *
  * Allows the User to Sign in with an Email and Password.
  *
  */
@@ -30,12 +33,12 @@ public class SignInActivity extends AppCompatActivity {
     private static final String TAG = "SignInActivity";
 
     // Initializing variables
-    TextInputLayout emailID, password;
-    Button btnSignIn;
-    TextView tvSignUp;
-    FirebaseAuth mFirebaseAuth;
+    TextInputLayout mEmailSignIn, mPasswordSignIn;
+    Button mButtonSignIn;
+    TextView mLinkSignUp;
+    FirebaseAuth mAuth;
 
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     /**
      * This is the onCreate Method for SignInActivity.
@@ -53,67 +56,71 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        emailID = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        btnSignIn = findViewById(R.id.signIn);
-        tvSignUp = findViewById(R.id.signUpLink);
+        // RUN ACTIVITY ONCE AFTER FRESH INSTALL
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+            Intent intent = new Intent(this, WalkThroughActivity.class);
+            startActivity(intent);
+        }
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        // Get References
+        mEmailSignIn = findViewById(R.id.email);
+        mPasswordSignIn = findViewById(R.id.password);
+        mButtonSignIn = findViewById(R.id.signIn);
+        mLinkSignUp = findViewById(R.id.signUpLink);
+
+        mAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             /**
              * Checks if the User is Logged in.
              * @param firebaseAuth The FirebaseAuth object
              */
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if (mFirebaseUser != null) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    finish();
                     Toast.makeText(SignInActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(i);
-                }
-                else {
-                    Toast.makeText(SignInActivity.this, "Please Log In", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
-
         };
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        mButtonSignIn.setOnClickListener(new View.OnClickListener() {
             /**
              * Called when the Sign In Button is clicked.
              * @param view The View object
              */
             @Override
             public void onClick(View view) {
+                // Converting input from user to String
+                String email = mEmailSignIn.getEditText().getText().toString();
+                String password = mPasswordSignIn.getEditText().getText().toString();
 
-                // Convert input email and password to Strings
-                String email = emailID.getEditText().getText().toString();
-                String pwd = password.getEditText().getText().toString();
-
-                // If both attributes are empty
-                if (email.isEmpty() && pwd.isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+                if (email.isEmpty() && password.isEmpty()) {
+                    Toast.makeText(SignInActivity.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
                 }
 
-                // If the email is an empty string
-                if (email.isEmpty()) {
-                    emailID.setError("Please enter your email.");
-                    emailID.requestFocus();
+                // If only the email field is empty
+                else if (email.isEmpty()) {
+                    mEmailSignIn.setError("Please enter your email.");
+                    mEmailSignIn.requestFocus();
                 }
 
-                // If the password is an empty string
-                else if (pwd.isEmpty()) {
-                    password.setError("Please enter your password.");
-                    password.requestFocus();
+                // If only the password field is empty
+                else if (password.isEmpty()) {
+                    mPasswordSignIn.setError("Please enter your email.");
+                    mPasswordSignIn.requestFocus();
                 }
 
-                // If both attributes are filled in
-                else if (!(email.isEmpty() && pwd.isEmpty())) {
-                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
+                // If both fields are empty
+                else if (!(email.isEmpty() && password.isEmpty())) {
+
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
                         /**
-                         *
                          * Called when Attempting to Sign in With Firebase.
                          *
                          * @param task The Task<AuthResult>
@@ -121,30 +128,25 @@ public class SignInActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(SignInActivity.this, "Login Error, Please Try Again", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                                startActivity(intent);
+                                Log.d(TAG, "Sign in unsuccessful");
+                                Toast.makeText(SignInActivity.this, "Error occurred.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 }
 
-                // If none of the statements are satisfied above, there is likely an error.
-                else {
-                    Toast.makeText(SignInActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
+        mLinkSignUp.setOnClickListener(new View.OnClickListener() {
             /**
              * Opens the SignUpActivity when the Sign Up Link is clicked.
              * @param view The View object
              */
             @Override
             public void onClick(View view) {
+                finish();
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
@@ -157,7 +159,17 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        mAuth.addAuthStateListener(firebaseAuthListener);
+
+        if (mAuth.getCurrentUser() != null) {
+            finish();
+            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(firebaseAuthListener);
     }
 }

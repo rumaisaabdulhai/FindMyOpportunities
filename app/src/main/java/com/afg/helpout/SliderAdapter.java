@@ -29,12 +29,10 @@ public class SliderAdapter extends PagerAdapter {
 
     /**
      * Constructor for the SliderAdapter
-     * @param context
+     * @param context The Context
      */
     public SliderAdapter(Context context) {
-
         this.context = context;
-
     }
 
     // Array that holds the IDs for the Icons Used
@@ -115,6 +113,7 @@ public class SliderAdapter extends PagerAdapter {
         TextView slideDescription = (TextView) view.findViewById(R.id.slide_desc);
         TextView largeHeading = (TextView) view.findViewById(R.id.large_heading);
 
+        // Sets the layout elements based on the elements from the lists
         slideImageView.setImageResource(slide_images[index]);
         slideHeading.setText(slide_headings[index]);
         slideDescription.setText(slide_descriptions[index]);
