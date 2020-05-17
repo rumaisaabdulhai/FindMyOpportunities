@@ -13,13 +13,22 @@
         android:id="@+id/toolbar">
     </include>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/opportunitiesRefreshLayout"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/bottom_nav"/>
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_nav"
+            android:layout_below="@id/toolbar"
+            android:scrollbars="vertical" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!--    BOTTOM NAV MENU    -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

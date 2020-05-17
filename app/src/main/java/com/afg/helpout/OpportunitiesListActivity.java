@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * The OpportunitiesListActivity Class
@@ -56,10 +58,11 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
     RecyclerAdapter recyclerAdapter;
+    private SwipeRefreshLayout mRefreshLayout;
 
     // Firebase Variables
     DatabaseReference databaseReference;
-    DatabaseReference opportunities_ref;
+    DatabaseReference opportunitiesRef;
 
     // ArrayList that holds the opportunities
     ArrayList<Opportunity> opportunities;
@@ -67,6 +70,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     // User Information
     String userAddress = "";
     PlaceData place;
+    private static int TOTAL_ITEMS_TO_LOAD = 5;
+    private int mCurrentPage = 1;
 
     /**
      * This is the onCreate Method for OpportunitiesListActivity.
@@ -91,6 +96,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
         // Sets the RecyclerView in the Layout
         recyclerview = findViewById(R.id.my_recycler_view);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.opportunitiesRefreshLayout);
         layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);
 
@@ -98,7 +104,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Reads from the "Opportunities" child in the database
-        opportunities_ref = databaseReference.child("Opportunities");
+        //opportunities_ref = databaseReference.child("Opportunities");
+
+        opportunitiesRef = databaseReference.child("Opportunities");
 
         // Initializes the Opportunity ArrayList
         opportunities = new ArrayList<>();
@@ -165,6 +173,42 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             }
         });
 
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mCurrentPage++;
+                opportunities.clear();
+
+                readData (new FirebaseCallback() {
+                    /**
+                     * Callback Method implementation of the FirebaseCallback interface.
+                     *
+                     * Populates the Opportunity ArrayList and displays the Opportunities by
+                     * creating and setting the RecyclerAdapter.
+                     *
+                     * @param opportunityArrayList The Opportunity ArrayList passed in from the readData method.
+                     */
+                    @Override
+                    public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
+
+                        for (Opportunity opportunity: opportunityArrayList) {
+                            Log.d(TAG, "onCallback:" +
+                                    "\nTitle: " + opportunity.getTitle() +
+                                    "\nDescription: " + opportunity.getDescription());
+                        }
+
+                        // Populates the opportunityArrayList
+                        opportunities = opportunityArrayList;
+
+                        // Creates a new RecyclerAdapter with the Opportunity ArrayList
+                        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+                        recyclerview.setAdapter(recyclerAdapter);
+                    }
+                });
+
+            }
+        });
+
     }
 
     /**
@@ -174,6 +218,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      * @param firebaseCallback The FirebaseCallback
      */
     private void readData(final FirebaseCallback firebaseCallback) {
+        Query opportunities_ref_query = opportunitiesRef.limitToFirst(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
         ValueEventListener valueEventListener = new ValueEventListener() {
             /**
              * Reads Data from Firebase and adds to an ArrayList of
@@ -201,6 +246,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                 }
 
                 firebaseCallback.onCallback(opportunities);
+                mRefreshLayout.setRefreshing(false);
 
             }
 
@@ -216,7 +262,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             }
         };
 
-        opportunities_ref.addValueEventListener(valueEventListener);
+        opportunities_ref_query.addValueEventListener(valueEventListener);
     }
 
     /**
