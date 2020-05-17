@@ -130,8 +130,10 @@ public class SignUpActivity extends AppCompatActivity {
                         // If username does not exist, proceed
                         else {
 
+                            boolean allEmpty = name.isEmpty() && username.isEmpty() && email.isEmpty() && password.isEmpty();
+
                             // If everything is empty
-                            if (name.isEmpty() && username.isEmpty() && email.isEmpty() && password.isEmpty()) {
+                            if (allEmpty) {
                                 Toast.makeText(SignUpActivity.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -160,7 +162,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
 
                             // If all are not empty
-                            else if (!(name.isEmpty() && username.isEmpty() && email.isEmpty() && password.isEmpty())) {
+                            else if (!(allEmpty)) {
 
                                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                                     /**
