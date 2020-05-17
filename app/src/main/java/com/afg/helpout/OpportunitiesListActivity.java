@@ -381,6 +381,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             case R.id.sortByName:
                 sortViewByName(findViewById(android.R.id.content).getRootView());
                 return true;
+            case R.id.sortByOrganizer:
+                sortViewByOrganizer(findViewById(android.R.id.content).getRootView());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -399,6 +402,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     }
 
     /**
+     * Sorts Opportunities Alphabetically by Organizer
+     * and Updates the RecyclerView.
+     *
+     * @param view The View object.
+     */
+    public void sortViewByOrganizer(View view) {
+        Collections.sort(opportunities, new OrganizerSorter());
+        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+        recyclerview.setAdapter(recyclerAdapter);
+    }
+
+    /**
      * Uses the information from the dialog to sort the RecyclerView by distance.
      *
      * @param town The desired Town input from the User.
@@ -406,27 +421,29 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      */
     @Override
     public void applyTexts(String town, String state) {
-        Log.v("MyActivity", "Town and state: " + town + " " + state);
+
         userAddress = MapQuestHelper.formatAddress(town + "," + state);
         userAddress = userAddress.replaceAll(", ", ",");
         userAddress = userAddress.replaceAll(" ,", ",");
         userAddress = userAddress.replaceAll(" ", "+");
-        Log.v("MyActivity", "Town and state: " + userAddress);
+        Log.d(TAG, "Town and state: " + userAddress);
         try {
             MapQuestAPITask mpTask = new MapQuestAPITask(this);
 
             place = mpTask.execute(userAddress).get();
 
-            Log.v("MyActivity", "Got place");
+            Log.d(TAG, "Got place");
 
             // For each opportunity, calculates distance by latitude and
             // longitude using the PlaceData Class.
-            for (Opportunity o: opportunities){
+            for (Opportunity o: opportunities) {
+
                 double lat1 = place.getLatitude(); double long1 = place.getLongitude();
                 double lat2 = o.getLatitude(); double long2 = o.getLongitude();
                 o.setDistance(PlaceData.distance(lat1, long1, lat2, long2));
-                Log.v("MyActivity", "OppDistances: " + o.getTitle());
-                Log.v("MyActivity", "Distances: " + o.getDistance());
+
+                Log.v(TAG, "OppDistances: " + o.getTitle());
+                Log.v(TAG, "Distances: " + o.getDistance());
             }
 
             // Sorts by Distance
@@ -449,14 +466,11 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      * @param view the View object.
      */
     public void sortViewByLocation(View view) {
-        Log.d("MyActivity", "before the location dialogue.");
+        Log.d(TAG, "Before the location dialogue.");
         openDialog();
-        Log.d("MyActivity", "after the location dialogue.");
-        Log.d("MyActivity", "sorting...");
         Collections.sort(opportunities, new DistanceSorter());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
-        Log.d("MyActivity", "set recyclerview and recycler adapter...");
     }
 
     /**

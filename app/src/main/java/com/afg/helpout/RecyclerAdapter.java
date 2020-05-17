@@ -65,8 +65,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         public RecyclerViewHolder(@NonNull View itemView, OnOpportunityListener onOpportunityListener)
         {
             super(itemView);
-            this.Title = itemView.findViewById(R.id.Title);
-            this.Description = itemView.findViewById(R.id.Description);
+            this.Title = itemView.findViewById(R.id.title);
+            this.Description = itemView.findViewById(R.id.descLabel);
             this.onOpportunityListener = onOpportunityListener;
 
             itemView.setOnClickListener(this);

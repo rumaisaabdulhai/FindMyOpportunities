@@ -14,6 +14,11 @@
         android:title="Sort By Name"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/sortByOrganizer"
+        android:title="Sort By Organizer"
+        app:showAsAction="never"/>
+
     <!--    Search Icon -->
     <item
         android:id="@+id/action_search"

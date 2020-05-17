@@ -81,11 +81,11 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: " + opportunity.getTitle());
 
             // Get Title Reference and Set Proper Title
-            TextView title = findViewById(R.id.titleText);
+            TextView title = findViewById(R.id.title);
             title.setText(opportunity.getTitle());
 
             // Get Description Reference and Set Proper Description
-            TextView description = findViewById(R.id.descriptionText);
+            TextView description = findViewById(R.id.descText);
             description.setText(opportunity.getDescription());
 
             // Get Organizer Reference and Set Proper Organizer
@@ -95,6 +95,14 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
             // Get Location Reference and Set Proper Location
             TextView location = findViewById(R.id.locationText);
             location.setText(opportunity.getLocation());
+
+            // Get Address Reference and Set Proper Address
+            TextView address = findViewById(R.id.addressText);
+            address.setText(opportunity.getAddress());
+
+            // Get Contact Reference and Set Proper Contact
+            TextView contact = findViewById(R.id.contactText);
+            contact.setText(opportunity.getContact());
         }
 
         // Sets the Custom Toolbar

@@ -31,8 +31,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     public Opportunity () {
         this.ID = "ID";
         this.title = "title";
-        this.address = new String();
-        this.contact = new String();
+        this.address = "";
+        this.contact = "";
         this.organizer = "organizer";
         this.location = "location";
         this.description = "description";
@@ -52,8 +52,8 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
     public Opportunity(String ID, String title, String organizer, String location, String description) {
         this.ID = ID;
         this.title = checkIsNull(title);
-        this.address = new String();
-        this.contact = new String();
+        this.address = "";
+        this.contact = "";
         this.organizer = checkIsNull(organizer);
         this.location = checkIsNull(location);
         this.description = checkIsNull(description);
@@ -332,6 +332,30 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         return Double.compare(this.getDistance(), o.getDistance());
     }
 
+}
+
+/**
+ * The OrganizerSorter Class
+ *
+ * Implements a custom Comparator
+ * to compare lists of opportunities based on
+ * the organizer of the opportunity.
+ */
+class OrganizerSorter implements Comparator<Opportunity>
+{
+    /**
+     *This method compares two opportunities based on their organizer.
+     * @param o1 the first opportunity
+     * @param o2 the second opportunity
+     * @return An integer based on the ranking of the opportunity object's title lexicographically.
+     * If the organizer is less than the given opportunity's title, this method will return a negative number. If the titles are
+     * the same, the method will return 0. If the title is greater than the given opportunity's organizer,
+     * this method will return a positive number.
+     */
+    public int compare(Opportunity o1, Opportunity o2)
+    {
+        return o1.getOrganizer().compareTo(o2.getOrganizer());
+    }
 }
 
 /**
