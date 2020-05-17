@@ -1,5 +1,6 @@
 package com.afg.helpout;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -166,6 +167,11 @@ public class DashboardFragment extends Fragment {
         users_ref.addValueEventListener(valueEventListener);
 
     }
+
+//    public void onClickGetStarted(View v){
+//        Intent intent = new Intent(v.getContext(), OpportunitiesListActivity.class);
+//        startActivity(intent);
+//    }
 
     /**
      * FirebaseCallback Interface

@@ -1,6 +1,8 @@
 package com.afg.helpout.mapObjects.Tasks;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.afg.helpout.mapObjects.PlaceData;
 
@@ -21,11 +23,13 @@ public class MapQuestHelper {
      * @param jsonStr the JSON result from the MapQuest query.
      * @return the placeData object that stores the longitude and latitude specified in the JSON.
      */
-        public static PlaceData extractJSONplaceData(String jsonStr){
+        public static PlaceData extractJSONplaceData(Context context, String jsonStr){
             PlaceData place = new PlaceData();
-            if(jsonStr.length() == 0){ //Check if MapQuest couldn't find the location.
+            if(jsonStr.length() == 0){ //Check if MapQuest returned an empty JSON.
+                Toast.makeText(context, "Unable to constrain your location at this time. Please try again later.", Toast.LENGTH_LONG).show();
                 return place;
             }
+
 
             else{
                 try {
@@ -42,6 +46,12 @@ public class MapQuestHelper {
                     JSONObject latlon = location.getJSONObject("displayLatLng");
                     double lat = Double.parseDouble(latlon.getString("lat"));
                     double lon = Double.parseDouble(latlon.getString("lng"));
+
+                    //lat=39.78373 and lon=-100.445882 are the coordinates that MapQuest returns if it couldn't find the address.
+                    if(lat==39.78373 && lon==-100.445882){
+                        lat=0; lon=0;
+                        Toast.makeText(context, "Unable to find the location. Please double-check your inputs.", Toast.LENGTH_LONG).show();
+                    }
 
                     String imageUrl = location.getString("mapUrl");
 

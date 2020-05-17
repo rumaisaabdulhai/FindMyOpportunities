@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * The OpportunitiesListActivity Class
@@ -56,10 +58,11 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerview;
     RecyclerAdapter recyclerAdapter;
+    private SwipeRefreshLayout mRefreshLayout;
 
     // Firebase Variables
     DatabaseReference databaseReference;
-    DatabaseReference opportunities_ref;
+    DatabaseReference opportunitiesRef;
 
     // ArrayList that holds the opportunities
     ArrayList<Opportunity> opportunities;
@@ -67,6 +70,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
     // User Information
     String userAddress = "";
     PlaceData place;
+    private static int TOTAL_ITEMS_TO_LOAD = 7;
+    private int mCurrentPage = 1;
 
     /**
      * This is the onCreate Method for OpportunitiesListActivity.
@@ -91,6 +96,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
 
         // Sets the RecyclerView in the Layout
         recyclerview = findViewById(R.id.my_recycler_view);
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.opportunitiesRefreshLayout);
         layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);
 
@@ -98,7 +104,9 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Reads from the "Opportunities" child in the database
-        opportunities_ref = databaseReference.child("Opportunities");
+        //opportunities_ref = databaseReference.child("Opportunities");
+
+        opportunitiesRef = databaseReference.child("Opportunities");
 
         // Initializes the Opportunity ArrayList
         opportunities = new ArrayList<>();
@@ -165,6 +173,42 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             }
         });
 
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mCurrentPage++;
+                opportunities.clear();
+
+                readData (new FirebaseCallback() {
+                    /**
+                     * Callback Method implementation of the FirebaseCallback interface.
+                     *
+                     * Populates the Opportunity ArrayList and displays the Opportunities by
+                     * creating and setting the RecyclerAdapter.
+                     *
+                     * @param opportunityArrayList The Opportunity ArrayList passed in from the readData method.
+                     */
+                    @Override
+                    public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
+
+                        for (Opportunity opportunity: opportunityArrayList) {
+                            Log.d(TAG, "onCallback:" +
+                                    "\nTitle: " + opportunity.getTitle() +
+                                    "\nDescription: " + opportunity.getDescription());
+                        }
+
+                        // Populates the opportunityArrayList
+                        opportunities = opportunityArrayList;
+
+                        // Creates a new RecyclerAdapter with the Opportunity ArrayList
+                        recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
+                        recyclerview.setAdapter(recyclerAdapter);
+                    }
+                });
+
+            }
+        });
+
     }
 
     /**
@@ -174,6 +218,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      * @param firebaseCallback The FirebaseCallback
      */
     private void readData(final FirebaseCallback firebaseCallback) {
+        Query opportunities_ref_query = opportunitiesRef.limitToFirst(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
         ValueEventListener valueEventListener = new ValueEventListener() {
             /**
              * Reads Data from Firebase and adds to an ArrayList of
@@ -192,11 +237,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     String organizer = ds.child("Organized By").getValue(String.class);
                     String location = ds.child("Where").getValue(String.class);
                     String description = ds.child("Description").getValue(String.class);
-                    String latitude = ds.child("latitude").getValue(String.class);
-                    String longitude = ds.child("longitude").getValue(String.class);
+                    String latitude = ds.child("Latitude").getValue(String.class);
+                    String longitude = ds.child("Longitude").getValue(String.class);
 
-//                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer, location,
-//                            description, Double.parseDouble(latitude), Double.parseDouble(longitude));
+                    Log.d("MyActivity", "latitude:" + latitude);
+                    Log.d("MyActivity", "longitude:" + longitude);
+
+                    if(latitude==null || latitude.equals("")) {
+                        latitude = "0";
+                    }
+                    if(longitude==null || longitude.equals("")) {
+                        longitude = "0";
+                    }
 
                     Opportunity opportunity = new Opportunity();
                     if(latitude==null)
@@ -213,10 +265,12 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     opportunity.setLatitude(Double.parseDouble(latitude));
                     opportunity.setLongitude(Double.parseDouble(longitude));
 
-                    opportunities.add(opportunity);
+                    opportunities.add(0, opportunity);
+
                 }
 
                 firebaseCallback.onCallback(opportunities);
+                mRefreshLayout.setRefreshing(false);
 
             }
 
@@ -232,7 +286,7 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             }
         };
 
-        opportunities_ref.addValueEventListener(valueEventListener);
+        opportunities_ref_query.addValueEventListener(valueEventListener);
     }
 
     /**
@@ -353,15 +407,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      */
     @Override
     public void applyTexts(String town, String state) {
-        Log.v(TAG, "Town and state: " + town + " " + state);
+        Log.v("MyActivity", "Town and state: " + town + " " + state);
         userAddress = MapQuestHelper.formatAddress(town + "," + state);
         userAddress = userAddress.replaceAll(", ", ",");
         userAddress = userAddress.replaceAll(" ,", ",");
         userAddress = userAddress.replaceAll(" ", "+");
+        Log.v("MyActivity", "Town and state: " + userAddress);
         try {
             MapQuestAPITask mpTask = new MapQuestAPITask(this);
 
             place = mpTask.execute(userAddress).get();
+
+            Log.v("MyActivity", "Got place");
 
             // For each opportunity, calculates distance by latitude and
             // longitude using the PlaceData Class.
@@ -369,6 +426,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                 double lat1 = place.getLatitude(); double long1 = place.getLongitude();
                 double lat2 = o.getLatitude(); double long2 = o.getLongitude();
                 o.setDistance(PlaceData.distance(lat1, long1, lat2, long2));
+                Log.v("MyActivity", "OppDistances: " + o.getTitle());
+                Log.v("MyActivity", "Distances: " + o.getDistance());
             }
 
             // Sorts by Distance
@@ -391,10 +450,14 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      * @param view the View object.
      */
     public void sortViewByLocation(View view) {
+        Log.d("MyActivity", "before the location dialogue.");
         openDialog();
+        Log.d("MyActivity", "after the location dialogue.");
+        Log.d("MyActivity", "sorting...");
         Collections.sort(opportunities, new DistanceSorter());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
+        Log.d("MyActivity", "set recyclerview and recycler adapter...");
     }
 
     /**

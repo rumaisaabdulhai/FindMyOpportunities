@@ -13,10 +13,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/appBarLayout">
 
-        <include
-            layout="@layout/toolbar_layout"
-            android:id="@+id/toolbar">
-        </include>
+        <include android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -50,6 +48,7 @@
         app:menu="@menu/bottom_navigation_menu"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_nav"
-        app:labelVisibilityMode="labeled" />
+        app:labelVisibilityMode="labeled" >
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

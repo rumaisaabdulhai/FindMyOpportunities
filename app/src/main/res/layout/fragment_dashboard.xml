@@ -7,15 +7,52 @@
     tools:context=".DashboardFragment">
 
     <TextView
-        android:layout_marginTop="170dp"
         android:id="@+id/welcomeBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome Back,"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/amiko"
+        android:text="Welcome Back,"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="40sp"
-        android:layout_centerHorizontal="true" />
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/quoteOfDayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"
+        android:maxWidth="500dp"
+        android:text="@string/quoteOfDayStr"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/howCanYouHelpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quoteOfDayText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="How Can You Help Out Today?"
+        android:textColor="#9265DC"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/clickHereToGetStartedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/howCanYouHelpText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="Click the search icon to get started."
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_marginTop="10dp"
