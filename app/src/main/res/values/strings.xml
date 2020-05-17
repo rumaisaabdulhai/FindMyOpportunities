@@ -25,10 +25,8 @@
     <string name="nextText">Next</string>
     <string name="finishText">Finish</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Opportunity">Opportunity</string>
-    <string name="quoteOfDayStr">“Life\'s most persistent and urgent question is: \'What are you doing for others?\'"</string>
+    <string name="quoteOfDayStr">\"Life\'s most persistent and urgent question is: \'What are you doing for others?\'\"</string>
     <string name="titleTextStr">Title</string>
     <string name="descriptionLabelStr">Description:</string>
     <string name="organizerLabelStr">Organizer:</string>
