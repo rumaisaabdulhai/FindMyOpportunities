@@ -12,10 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!--    BOTTOM NAV MENU    -->
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:foregroundGravity="center_horizontal"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Scrolling">
+
         <include
-            layout="@layout/toolbar_layout"
-            android:id="@+id/toolbar">
-        </include>
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"></include>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -26,19 +40,9 @@
             app:tabIconTint="@color/color_selector"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
-            app:tabTextAppearance="@style/customTabLayout">
-        </com.google.android.material.tabs.TabLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Scrolling">
+            app:tabTextAppearance="@style/customTabLayout"></com.google.android.material.tabs.TabLayout>
     </androidx.viewpager.widget.ViewPager>
 
-    <!--    BOTTOM NAV MENU    -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
@@ -48,6 +52,8 @@
         app:menu="@menu/bottom_navigation_menu"
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_nav"
-        app:labelVisibilityMode="labeled" />
+        app:labelVisibilityMode="labeled" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

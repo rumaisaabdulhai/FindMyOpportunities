@@ -32,6 +32,7 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
      */
     public MapQuestAPITask(OpportunitiesListActivity activity){
         super();
+        Log.d(debugTag, "In the MapQuest Constructor.");
         this.activity = activity;
         this.context = this.activity.getApplicationContext();
 
@@ -45,6 +46,7 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
      */
     @Override
     protected PlaceData doInBackground(String...params) {
+        Log.d(debugTag, "In the doInBackground method. Param: " + params[0]);
         String jsonRequest = queryMapQuest(params[0]);
         return readJSON(jsonRequest);
     }
@@ -56,6 +58,10 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
     @Override
     //Retrieve User Location
     protected void onPostExecute(PlaceData result){
+        Log.d(debugTag, "In the onPostExecute method. Result: " + result.toString());
+        if(result.getLatitude()==0){
+            Toast.makeText(context, "Unable to find the location. Please double-check your inputs.", Toast.LENGTH_LONG).show();
+        }
         this.place = result;
     }
 
@@ -124,7 +130,7 @@ public class MapQuestAPITask extends AsyncTask<String, Integer, PlaceData>{
             }
 
             else{ // Return the first location MapQuest found
-                placeData = MapQuestHelper.extractJSONplaceData(result);
+                placeData = MapQuestHelper.extractJSONplaceData(context, result);
             }
         }
 

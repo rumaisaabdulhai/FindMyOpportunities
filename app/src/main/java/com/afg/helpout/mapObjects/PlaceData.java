@@ -9,6 +9,7 @@ public class PlaceData {
     private double longitude;
     //This is a link to a static map of the location. This isn't used right now but can be used in the UI in the future.
     private String mapUrl;
+    private String debugTag = "MyActivity";
 
     final private double EARTH_RADIUS = 3958.8; //In MILES.
 

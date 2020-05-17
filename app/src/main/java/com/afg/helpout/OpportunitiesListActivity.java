@@ -237,29 +237,23 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     String organizer = ds.child("Organized By").getValue(String.class);
                     String location = ds.child("Where").getValue(String.class);
                     String description = ds.child("Description").getValue(String.class);
-                    String latitude = ds.child("latitude").getValue(String.class);
-                    String longitude = ds.child("longitude").getValue(String.class);
+                    String latitude = ds.child("Latitude").getValue(String.class);
+                    String longitude = ds.child("Longitude").getValue(String.class);
 
-                    Opportunity opportunity = new Opportunity();
-                    if(latitude==null){
+                    Log.d("MyActivity", "latitude:" + latitude);
+                    Log.d("MyActivity", "longitude:" + longitude);
+
+                    if(latitude==null || latitude.equals("")) {
                         latitude = "0";
                     }
-
-                    if(longitude==null){
+                    if(longitude==null || longitude.equals("")) {
                         longitude = "0";
                     }
-                        opportunity.setID(ID);
-                        opportunity.setTitle(title);
-                        opportunity.setAddress(address);
-                        opportunity.setContact(contact);
-                        opportunity.setDescription(description);
-                        opportunity.setLocation(location);
-                        opportunity.setLatitude(Double.parseDouble(latitude));
-                        opportunity.setLongitude(Double.parseDouble(longitude));
 
 
-//                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer, location,
-//                            description, Double.parseDouble(latitude), Double.parseDouble(longitude));
+                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer,
+                            location, description, Double.parseDouble(latitude), Double.parseDouble(longitude));
+
                     opportunities.add(0, opportunity);
                 }
 
@@ -401,15 +395,18 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      */
     @Override
     public void applyTexts(String town, String state) {
-        Log.v(TAG, "Town and state: " + town + " " + state);
+        Log.v("MyActivity", "Town and state: " + town + " " + state);
         userAddress = MapQuestHelper.formatAddress(town + "," + state);
         userAddress = userAddress.replaceAll(", ", ",");
         userAddress = userAddress.replaceAll(" ,", ",");
         userAddress = userAddress.replaceAll(" ", "+");
+        Log.v("MyActivity", "Town and state: " + userAddress);
         try {
             MapQuestAPITask mpTask = new MapQuestAPITask(this);
 
             place = mpTask.execute(userAddress).get();
+
+            Log.v("MyActivity", "Got place");
 
             // For each opportunity, calculates distance by latitude and
             // longitude using the PlaceData Class.
@@ -417,6 +414,8 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                 double lat1 = place.getLatitude(); double long1 = place.getLongitude();
                 double lat2 = o.getLatitude(); double long2 = o.getLongitude();
                 o.setDistance(PlaceData.distance(lat1, long1, lat2, long2));
+                Log.v("MyActivity", "OppDistances: " + o.getTitle());
+                Log.v("MyActivity", "Distances: " + o.getDistance());
             }
 
             // Sorts by Distance
@@ -439,10 +438,14 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
      * @param view the View object.
      */
     public void sortViewByLocation(View view) {
+        Log.d("MyActivity", "before the location dialogue.");
         openDialog();
+        Log.d("MyActivity", "after the location dialogue.");
+        Log.d("MyActivity", "sorting...");
         Collections.sort(opportunities, new DistanceSorter());
         recyclerAdapter = new RecyclerAdapter(opportunities, OpportunitiesListActivity.this, OpportunitiesListActivity.this);
         recyclerview.setAdapter(recyclerAdapter);
+        Log.d("MyActivity", "set recyclerview and recycler adapter...");
     }
 
     /**

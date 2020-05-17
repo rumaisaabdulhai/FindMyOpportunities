@@ -51,12 +51,12 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
      */
     public Opportunity(String ID, String title, String organizer, String location, String description) {
         this.ID = ID;
-        this.title = title;
+        this.title = checkIsNull(title);
         this.address = new String();
         this.contact = new String();
-        this.organizer = organizer;
-        this.location = location;
-        this.description = description;
+        this.organizer = checkIsNull(organizer);
+        this.location = checkIsNull(location);
+        this.description = checkIsNull(description);
         this.latitude = 0;
         this.longitude = 0;
         this.distance = 0;
@@ -75,12 +75,14 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
      */
     public Opportunity(String ID, String title, String address, String contact, String organizer, String location, String description, double latitude, double longitude) {
         this.ID = ID;
-        this.title = title;
-        this.address = address;
-        this.contact = contact;
-        this.organizer = organizer;
-        this.location = location;
-        this.description = description;
+
+        this.title = checkIsNull(title);
+        this.address = checkIsNull(address);
+        this.contact = checkIsNull(contact);
+        this.organizer = checkIsNull(organizer);
+        this.location = checkIsNull(location);
+        this.description = checkIsNull(description);
+
         this.latitude = latitude;
         this.longitude = longitude;
         this.distance = 0;
@@ -116,6 +118,18 @@ public class Opportunity  implements Parcelable, Comparable<Opportunity> {
         }
     };
 
+    /**
+     * Checks if the parameter is null or not. If it is, this method returns an empty string. If it isn't,
+     * the method returns the inputted parameter.
+     * @param param the String parameter to be tested.
+     * @return an empty string or the parameter inputted.
+     */
+    private static String checkIsNull(String param){
+        if(param==null)
+            return "";
+        else
+            return param;
+    }
     /**
      * Gets the latitude of the opportunity.
      * @return The latitude.
