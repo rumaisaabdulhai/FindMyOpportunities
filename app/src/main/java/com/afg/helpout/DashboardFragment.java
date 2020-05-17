@@ -86,9 +86,29 @@ public class DashboardFragment extends Fragment {
 
                 String name = dataSnapshot.child(ID).child("Name").getValue(String.class);
                 String username = dataSnapshot.child(ID).child("Username").getValue(String.class);
-                Log.d("DashFragment", "Name " + name);
 
-                User user = new User(name, username, email, ID, new ArrayList<Integer>());
+                // Initialize a favorites list
+                ArrayList<String> id_favorites = new ArrayList<>();
+
+                // If a favorites folder has been created
+                if (dataSnapshot.child(ID).child("Favorites").exists()) {
+
+                    // Get reference for the favorites folder
+                    DataSnapshot favorites_ref = dataSnapshot.child(ID).child("Favorites");
+
+                    // Loop through each child in the favorites
+                    for (DataSnapshot id_favorite: favorites_ref.getChildren()) {
+
+                        String favorite_id = id_favorite.getValue(String.class);
+
+                        // Append ID of favorite opportunities to the ArrayList of IDs
+                        id_favorites.add(favorite_id);
+
+                    }
+                }
+
+                // Create a new user
+                User user = new User(name, username, email, ID, id_favorites);
                 firebaseCallback.onCallback(user);
             }
 
