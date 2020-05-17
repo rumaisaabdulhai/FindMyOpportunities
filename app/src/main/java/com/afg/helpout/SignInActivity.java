@@ -167,6 +167,9 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Removes listener
+     */
     @Override
     protected void onStop() {
         super.onStop();

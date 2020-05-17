@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -221,6 +222,8 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                     // Change appearance of icon to look selected
                     item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_selected));
 
+                    Toast.makeText(DisplayOpportunityActivity.this, "Saved to favorites.", Toast.LENGTH_SHORT).show();
+
                     Log.d(TAG, "Selected: " + opportunity.getTitle());
 
                     ArrayList<String> favorites = currentUser.getFavorites();
@@ -245,9 +248,16 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                     // Change appearance of icon to look unselected
                     item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_unselected));
 
+                    Toast.makeText(DisplayOpportunityActivity.this, "Removed from favorites.", Toast.LENGTH_SHORT).show();
+
                     Log.d(TAG, "Unselected: " + opportunity.getTitle());
 
                     ValueEventListener valueEventListener = new ValueEventListener() {
+                        /**
+                         * When called, removes the opportunity from favorites.
+                         *
+                         * @param dataSnapshot The DataSnapshot of the Users information
+                         */
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -267,9 +277,17 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                        // If error occurs
+
+                        /**
+                         * Called when an error occurs.
+                         *
+                         * @param databaseError The DatabaseError
+                         */
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) { }
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d(TAG, databaseError.getMessage());
+                            Toast.makeText(DisplayOpportunityActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
+                        }
                     };
                     users_ref.addListenerForSingleValueEvent(valueEventListener);
                 }
@@ -323,9 +341,15 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                 firebaseCallback.onCallback(user);
             }
 
+            /**
+             * Called when an error occurs.
+             *
+             * @param databaseError The DatabaseError
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d(TAG, databaseError.getMessage());
+                Toast.makeText(DisplayOpportunityActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
             }
         };
         users_ref.addValueEventListener(valueEventListener);
@@ -345,9 +369,6 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
 
         // For each ID in the list of favorite opportunity IDs
         for (String id : currentUser.getFavorites()) {
-
-            Log.d(TAG, "String id = " + id);
-            Log.d(TAG, "Opp ID = " + opportunity.getID());
 
             // If the ID of the displayed opportunity equals
             // an ID existing in the user's favorites

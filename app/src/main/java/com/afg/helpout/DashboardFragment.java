@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +48,9 @@ public class DashboardFragment extends Fragment {
     String ID;
     String email;
 
-    // Required empty public constructor
+    /**
+     * Required empty public constructor
+     */
     public DashboardFragment() { }
 
     /**
@@ -155,10 +158,15 @@ public class DashboardFragment extends Fragment {
                 firebaseCallback.onCallback(user);
             }
 
-            // If error occurs
+            /**
+             * Called when an error occurs.
+             *
+             * @param databaseError The DatabaseError
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d( "DashFragment", databaseError.getMessage() );
+                Log.d(TAG, databaseError.getMessage());
+                Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
             }
         };
 

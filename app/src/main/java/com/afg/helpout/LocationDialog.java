@@ -18,6 +18,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
  */
 public class LocationDialog extends AppCompatDialogFragment {
 
+    // TAG for logging
+    private static final String TAG = "LocationDialog";
+
     // Initializing Variables
     private EditText town;
     private EditText state;
@@ -71,7 +74,6 @@ public class LocationDialog extends AppCompatDialogFragment {
     }
 
     /**
-     *
      * Called when a fragment is first attached to its context.
      *
      * @param context The Context

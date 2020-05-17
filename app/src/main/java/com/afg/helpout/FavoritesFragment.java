@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -53,9 +54,20 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
     RecyclerView recyclerview;
     RecyclerAdapter recyclerAdapter;
 
-    // Required empty public constructor
+    /**
+     * Required empty public constructor
+     */
     public FavoritesFragment() { }
 
+    /**
+     * Similar to onCreate where the layout is initialized.
+     * The method for reading the data is called here.
+     *
+     * @param inflater The LayoutInflater that makes the layout in the HomeActivity
+     * @param container The ViewGroup that holds the layout
+     * @param savedInstanceState The Bundle that holds the saved state of the layout
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +98,11 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
 
         // Calls the method to read the user data
         readUserData(new FavoritesFragment.FirebaseCallback() {
-
+            /**
+             * Called after reading data to save the Opportunity ArrayList
+             * and to set the RecyclerView.
+             * @param opportunityArrayList The opportunities ArrayList
+             */
             @Override
             public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
                 opportunities = opportunityArrayList;
@@ -130,7 +146,6 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
                 String username = users_ref.child(ID).child("Username").getValue(String.class);
 
                 Log.d(TAG, "NAME: " + name);
-                Log.d(TAG, "USERNAME: " + username);
                 Log.d(TAG, "ID: " + ID);
 
                 // Initialize a favorites list
@@ -200,10 +215,15 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
                 firebaseCallback.onCallback(opportunityArrayList);
             }
 
-            // If error occurs
+            /**
+             * Called when an error occurs.
+             *
+             * @param databaseError The DatabaseError
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d( "DashFragment", databaseError.getMessage() );
+                Log.d(TAG, databaseError.getMessage());
+                Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
             }
         };
 

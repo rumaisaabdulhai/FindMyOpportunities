@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afg.helpout.mapObjects.PlaceData;
 import com.afg.helpout.mapObjects.Tasks.MapQuestAPITask;
@@ -240,9 +241,6 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     String latitude = ds.child("Latitude").getValue(String.class);
                     String longitude = ds.child("Longitude").getValue(String.class);
 
-                    Log.d("MyActivity", "latitude:" + latitude);
-                    Log.d("MyActivity", "longitude:" + longitude);
-
                     if(latitude==null || latitude.equals("")) {
                         latitude = "0";
                     }
@@ -277,11 +275,12 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
             /**
              * If there is an error when reading data.
              *
-             * @param databaseError The DataBaseError
+             * @param databaseError The DatabaseError
              */
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d( TAG, databaseError.getMessage() );
+                Log.d( TAG, databaseError.getMessage() );Log.d(TAG, databaseError.getMessage());
+                Toast.makeText(OpportunitiesListActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
 
             }
         };

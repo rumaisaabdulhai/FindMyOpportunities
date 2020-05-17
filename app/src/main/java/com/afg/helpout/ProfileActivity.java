@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,6 +99,9 @@ public class ProfileActivity extends AppCompatActivity {
         currentUser = new User();
 
         readUserData(new FirebaseCallback() {
+            /**
+             * @param user
+             */
             @Override
             public void onCallback(User user) {
 
@@ -144,6 +148,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Listener for the Sign Out Button
+             * @param view The View
+             */
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
@@ -211,9 +219,15 @@ public class ProfileActivity extends AppCompatActivity {
                 firebaseCallback.onCallback(user);
             }
 
+            /**
+             * Called when an error occurs.
+             *
+             * @param databaseError The DatabaseError
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d( TAG, databaseError.getMessage() );
+                Log.d(TAG, databaseError.getMessage());
+                Toast.makeText(ProfileActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
             }
         };
 
