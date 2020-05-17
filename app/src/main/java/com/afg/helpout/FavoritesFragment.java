@@ -53,8 +53,6 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
     RecyclerView recyclerview;
     RecyclerAdapter recyclerAdapter;
 
-    ArrayList<String> id_favs;
-
     // Required empty public constructor
     public FavoritesFragment() { }
 
@@ -63,9 +61,6 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_favorites, container, false);
-
-
-        id_favs = new ArrayList<>();
 
         // Get Instance of Auth
         mAuth = FirebaseAuth.getInstance();
@@ -95,8 +90,6 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
             @Override
             public void onCallback(ArrayList<Opportunity> opportunityArrayList) {
                 opportunities = opportunityArrayList;
-
-//                Log.d(TAG, opportunities.toString());
 
                 // Creates a new RecyclerAdapter with the Opportunity ArrayList
                 recyclerAdapter = new RecyclerAdapter(opportunities, getActivity(), FavoritesFragment.this);
@@ -159,14 +152,15 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
 
                     }
 
-//                    Log.d(TAG, "FAVORITES: " + id_favorites.toString());
-
                 }
 
+                // For each id in the IDs of favorite opportunities
                 for (String id: id_favorites) {
 
+                    // Get the DataSnapshot reference
                     DataSnapshot ds = opportunities_ref.child(id);
 
+                    // Convert to String for storing
                     String ID  = ds.getKey();
                     String title = ds.child("Title").getValue(String.class);
                     String address = ds.child("Address").getValue(String.class);
@@ -177,11 +171,17 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
                     String latitude = ds.child("Latitude").getValue(String.class);
                     String longitude = ds.child("Longitude").getValue(String.class);
 
+                    // Default opportunity
                     Opportunity opportunity = new Opportunity();
+
+                    // Checks for null
                     if (latitude==null)
                         latitude = "0";
                     if (longitude==null)
                         longitude = "0";
+
+                    // Used setters and getters over constructor as
+                    // not all opportunities will have these attributes.
                     opportunity.setID(ID);
                     opportunity.setTitle(title);
                     opportunity.setAddress(address);
@@ -192,10 +192,11 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
                     opportunity.setLatitude(Double.parseDouble(latitude));
                     opportunity.setLongitude(Double.parseDouble(longitude));
 
+                    // Adds the Opportunity to the ArrayList
                     opportunityArrayList.add(opportunity);
                 }
 
-                // Create a new user
+                // Sends the opportunityArrayList to the onCallback method
                 firebaseCallback.onCallback(opportunityArrayList);
             }
 
@@ -206,6 +207,7 @@ public class FavoritesFragment extends Fragment implements RecyclerAdapter.OnOpp
             }
         };
 
+        // Starts the valueEventListener, will keep checking from Firebase
         databaseReference.addValueEventListener(valueEventListener);
     }
 
