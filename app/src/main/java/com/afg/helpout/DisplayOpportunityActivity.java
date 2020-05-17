@@ -32,6 +32,8 @@ import java.util.Map;
  *
  * Processes data from OpportunityListActivity.
  * Displays the Opportunity's name, description, contact info, etc.
+ *
+ * Allows for opportunities to be favorite.
  */
 public class DisplayOpportunityActivity extends AppCompatActivity {
 
@@ -117,6 +119,12 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
         currentUser = new User();
 
         readUserData(new DisplayOpportunityActivity.FirebaseCallback() {
+            /**
+             * Called after reading the userdata
+             * to save the user object and make it accessible within
+             * the class. Sets the Username Text View
+             * @param user The User object
+             */
             @Override
             public void onCallback(User user) {
                 currentUser = user;
@@ -220,12 +228,7 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
 
                     ArrayList<String> favorites = currentUser.getFavorites();
 
-                    Log.d(TAG, "Before: " + currentUser.getFavorites().toString());
-
                     favorites.add(opportunity.getID());
-
-                    Log.d(TAG, "After: " + currentUser.getFavorites().toString());
-
                     currentUser.setFavorites(favorites);
 
                     // Append to Firebase
@@ -264,31 +267,36 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
 
                                     id_favorite.getRef().removeValue();
                                     Log.d(TAG, "Removed from Firebase: " + opportunity.getTitle());
-
                                 }
                             }
-
                         }
-
+                        // If error occurs
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
+                        public void onCancelled(@NonNull DatabaseError databaseError) { }
                     };
-
                     users_ref.addListenerForSingleValueEvent(valueEventListener);
-
                 }
-
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /**
+     * Method for reading the User's Data from Firebase.
+     *
+     * @param firebaseCallback The FirebaseCallback interface
+     */
     private void readUserData(final DisplayOpportunityActivity.FirebaseCallback firebaseCallback) {
 
         ValueEventListener valueEventListener = new ValueEventListener() {
+            /**
+             * Listens for changes on the User's data from Firebase and creates
+             * a new User. Passes the User object to the onCallback method where
+             * it can be used by the whole class.
+             *
+             * @param dataSnapshot The DataSnapshot at an instance in time
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -323,7 +331,6 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
                 Log.d(TAG, databaseError.getMessage());
             }
         };
-
         users_ref.addValueEventListener(valueEventListener);
     }
 
@@ -355,11 +362,11 @@ public class DisplayOpportunityActivity extends AppCompatActivity {
         return isFavorite;
     }
 
-        /**
-         * FirebaseCallback Interface
-         */
-        private interface FirebaseCallback {
-            void onCallback(User user);
-        }
+    /**
+     * FirebaseCallback Interface
+     */
+    private interface FirebaseCallback {
+        void onCallback(User user);
+    }
 
 }

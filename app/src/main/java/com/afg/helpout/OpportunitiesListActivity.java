@@ -195,8 +195,24 @@ public class OpportunitiesListActivity extends AppCompatActivity implements Recy
                     String latitude = ds.child("latitude").getValue(String.class);
                     String longitude = ds.child("longitude").getValue(String.class);
 
-                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer, location,
-                            description, Double.parseDouble(latitude), Double.parseDouble(longitude));
+//                    Opportunity opportunity = new Opportunity(ID, title, address, contact, organizer, location,
+//                            description, Double.parseDouble(latitude), Double.parseDouble(longitude));
+
+                    Opportunity opportunity = new Opportunity();
+                    if(latitude==null)
+                        latitude = "0";
+                    if(longitude==null)
+                        longitude = "0";
+                    opportunity.setID(ID);
+                    opportunity.setTitle(title);
+                    opportunity.setAddress(address);
+                    opportunity.setContact(contact);
+                    opportunity.setOrganizer(organizer);
+                    opportunity.setDescription(description);
+                    opportunity.setLocation(location);
+                    opportunity.setLatitude(Double.parseDouble(latitude));
+                    opportunity.setLongitude(Double.parseDouble(longitude));
+
                     opportunities.add(opportunity);
                 }
 

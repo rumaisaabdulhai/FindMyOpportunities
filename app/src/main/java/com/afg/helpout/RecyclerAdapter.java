@@ -127,7 +127,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
      */
     @Override
     public int getItemCount() {
-        return opportunities.size();
+
+        if (opportunities == null) {
+            return 0;
+        }
+        else {
+            return opportunities.size();
+        }
     }
 
     /**

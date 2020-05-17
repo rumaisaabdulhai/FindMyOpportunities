@@ -10,7 +10,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout">
 
         <include
             layout="@layout/toolbar_layout"
@@ -32,10 +33,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:layout_below="@id/appBarLayout"
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Scrolling">
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
     </androidx.viewpager.widget.ViewPager>
 
     <!--    BOTTOM NAV MENU    -->

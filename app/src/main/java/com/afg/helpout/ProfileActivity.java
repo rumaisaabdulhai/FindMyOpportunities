@@ -167,9 +167,21 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for reading the User's Data from Firebase.
+     *
+     * @param firebaseCallback The FirebaseCallback interface
+     */
     private void readUserData(final FirebaseCallback firebaseCallback) {
 
         ValueEventListener valueEventListener = new ValueEventListener() {
+            /**
+             * Listens for changes on the User's data from Firebase and creates
+             * a new User. Passes the User object to the onCallback method where
+             * it can be used by the whole class.
+             *
+             * @param dataSnapshot The DataSnapshot at an instance in time
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -212,7 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * FirebaseCallback Interface
      */
-    interface FirebaseCallback {
+    private interface FirebaseCallback {
         void onCallback(User user);
     }
 }

@@ -20,11 +20,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * The DashboardFragment Class
+ *
+ * Welcomes the user and remembers their name.
+ * In the future, this page will display the opportunities
+ * that the user has recently viewed. This feature will
+ * most likely be implemented with SharedPreferences.
  */
 public class DashboardFragment extends Fragment {
+
+    // TAG for logging
+    private static final String TAG = "DashboardFragment";
 
     // Firebase Variables
     FirebaseAuth mAuth;
@@ -34,26 +41,38 @@ public class DashboardFragment extends Fragment {
     // User object that holds the current user's information
     User currentUser;
 
-    TextView welcomeUser;
+    // View that will hold the name of the user
+    TextView UserName;
 
+    // Information about the specific user
     String ID;
     String email;
 
-    public DashboardFragment() {
-        // Required empty public constructor
-    }
+    // Required empty public constructor
+    public DashboardFragment() { }
 
+    /**
+     * Similar to onCreate where the layout is initialized.
+     * The method for reading the data is called here.
+     *
+     * @param inflater The LayoutInflater that makes the layout in the HomeActivity
+     * @param container The ViewGroup that holds the layout
+     * @param savedInstanceState The Bundle that holds the saved state of the layout
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        welcomeUser = (TextView) v.findViewById(R.id.userName);
+        // Gets Reference of the View
+        UserName = (TextView) v.findViewById(R.id.userName);
 
         // Get Instance of Auth
         mAuth = FirebaseAuth.getInstance();
 
+        // Gets main user information
         ID = mAuth.getCurrentUser().getUid();
         email = mAuth.getCurrentUser().getEmail();
 
@@ -63,24 +82,49 @@ public class DashboardFragment extends Fragment {
         // Reads from the "Users" child in the database
         users_ref = databaseReference.child("Users");
 
-        // Initializes the Opportunity ArrayList
+        // Initializes the User object
         currentUser = new User();
 
+        // Calls the method to read the user data
         readUserData(new DashboardFragment.FirebaseCallback() {
+            /**
+             * Called after reading the userdata
+             * to save the user object and make it accessible within
+             * the class. Sets the Username Text View
+             * @param user The User object
+             */
             @Override
             public void onCallback(User user) {
+
+                // Assigns the reference of the passed in
+                // variable to the default User object.
                 currentUser = user;
-                welcomeUser.setText(currentUser.getName());
+
+                // Sets the Username TextView to make the
+                // dashboard seem more personalized.
+                UserName.setText(currentUser.getName());
             }
         });
 
+        // Returns the View
         return v;
-
     }
 
+    /**
+     * Method for reading the User's Data from Firebase.
+     *
+     * @param firebaseCallback The FirebaseCallback interface
+     */
     private void readUserData(final DashboardFragment.FirebaseCallback firebaseCallback) {
 
         ValueEventListener valueEventListener = new ValueEventListener() {
+            /**
+             * Listens for changes on the User's data from Firebase and creates
+             * a new User. Passes the User object to the onCallback method where
+             * it can be used by the whole class.
+             *
+             * @param dataSnapshot The DataSnapshot at an instance in time
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -112,6 +156,7 @@ public class DashboardFragment extends Fragment {
                 firebaseCallback.onCallback(user);
             }
 
+            // If error occurs
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d( "DashFragment", databaseError.getMessage() );
