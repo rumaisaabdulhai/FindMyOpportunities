@@ -19,13 +19,13 @@
 
     <TextView
         android:id="@+id/quoteOfDayText"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
         android:gravity="center_horizontal"
+        android:maxWidth="500dp"
         android:text="@string/quoteOfDayStr"
         android:textSize="36sp"
         android:textStyle="bold" />
@@ -50,7 +50,7 @@
         android:layout_below="@+id/howCanYouHelpText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:text="Click Here to Get Started."
+        android:text="Click the search icon to get started."
         android:textSize="20sp"
         android:textStyle="bold" />
 
